@@ -9,6 +9,7 @@
 /*
 ====================================
 ------------------------------------
+    0. halfthone-dot
     1. General
     2. Typography
     3. Home
@@ -50,6 +51,27 @@ html {
 
 /* Link style
 ==================================================*/
+/* 전체 바닥 배경을 통제하는 스타일 */
+.mouse-wave-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100px;
+    /* 초기 스케일 기준 크기 */
+    height: 100px;
+    border-radius: 50%;
+    /* 이미지에서 보였던 연두색~녹색 계열의 부드러운 방사형 그라데이션 채택 */
+    background: radial-gradient(circle, rgba(163, 230, 53, 0.6) 0%, rgba(163, 230, 53, 0.2) 40%, rgba(255, 255, 255, 0) 70%);
+    pointer-events: none;
+    /* 마우스 클릭이나 호버 이벤트를 절대 방해하지 않음 */
+    z-index: -1;
+    /* 최하단 배경색 레이어로 배치하여 글자/이미지 뒤로 숨김 */
+    will-change: transform;
+    /* 브라우저 하드웨어 가속으로 끊김 현상 방지 */
+    transform: translate3d(-100%, -100%, 0);
+    /* 시작 시 화면 밖 배치 */
+}
+
 a {
     color: #333333;
 }
@@ -540,34 +562,76 @@ video {
     line-height: 1.5;
 }
 
-.hashtag {
+
+/* ===== 과제 2: 형광펜 하이라이트바 완벽 구동 스타일 ===== */
+.hl-trigger-container {
+    position: relative;
+    display: inline-block;
+    z-index: 1;
+}
+
+.hl-trigger-container .highlight-text {
     font-weight: 700;
+    color: #111;
+    position: relative;
+    z-index: 5;
+}
+
+.hl-trigger-container .animated-bg-bar {
+    position: absolute;
+    left: 0;
+    bottom: 0px;
+    width: 100% !important;
+    height: 14px !important;
+    /* 형광펜 두께 */
+    background-color: rgba(46, 204, 113, 0.4) !important;
+    /* 포인트 연두/녹색 */
+    z-index: 2 !important;
+    display: block !important;
+    transform: scaleX(0);
+    /* 스크립트 실행 전 크기 0 */
+    transform-origin: left center;
+}
+
+/* ===== 과제 3: 레퍼런스 리소스 기반 해시태그 스타일 이식 ===== */
+.hashtag-split-zone {
+    position: relative;
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: flex-start;
+    border-radius: 9px;
+    overflow: hidden;
+    /* 위에서 떨어질 때 영역 넘침 방지 */
+    padding: 10px 0;
 }
 
-.hashtag li span {
+.hashtag-headline {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    opacity: 0;
+    /* 스크립트 로드 전 깜빡임 방지 (레퍼런스 h2 스타일 이식) */
+}
+
+/* 레퍼런스의 .word 클래스 스타일 속성을 해시태그 디자인으로 커스텀 변환 */
+.hashtag-headline .tag-word {
     display: inline-block;
-    background-color: #fff;
-    padding: 0 10px;
+    background: #f4f4f5;
+    color: #333;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 8px 18px;
     border-radius: 10px;
+    margin: 0.25rem;
+    will-change: transform, opacity;
 }
 
-.hashtag .bg_red span {
-    background-color: #008136;
-    color: #fff;
+/* 이미지에 배치되었던 포인트 그린 컬러 활성화 속성 고수 */
+.hashtag-headline .tag-word.bg_green_point {
+    background: #008744 !important;
+    color: #fff !important;
 }
-
-.hashtag li:hover span {
-    background-color: #008136;
-    color: #fff;
-}
-
-.tag_m {
-    padding-top: 50px;
-}
-
 
 
 /*download-button
@@ -622,12 +686,6 @@ video {
     right: -25px;
 }
 
-.note {
-    width: 100px;
-    bottom: 0px;
-    left: 0px;
-}
-
 .biography ul {
     padding: 25px 20px 30px;
 }
@@ -670,6 +728,9 @@ video {
 
 .blog-post-wrapper {
     margin-bottom: 30px;
+    border-radius: 25px;
+    padding: 30px;
+    box-shadow: 0px 0px 5px rgba(162, 230, 53, 0.212);
 }
 
 .figure {
@@ -697,6 +758,66 @@ video {
     -ms-transform: scale(1.05);
     -o-transform: scale(1.05);
     transform: scale(1.05);
+}
+
+/* 호버 비디오 공통 스타일 */
+.post-thumbnail,
+.portfolio {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Portfolio 섹션의 그리드 정렬을 맞추기 위한 Flexbox 적용 */
+#portfolio .row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* 부트스트랩 기본 float 속성과 빈 공간 걸림 현상을 초기화합니다 */
+#portfolio .row .col-sm-6 {
+    float: none;
+    display: flex;
+    margin-bottom: 30px;
+    /* 아이템 하단 간격 조정 */
+}
+
+/* 내부 카드 형태의 포스트 박스가 부모 높이를 가득 채우도록 설정 */
+#portfolio .blog-post-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* 이미지와 텍스트 배치 균형 최적화 */
+    background: #fff;
+    /* 필요 시 배경색 유지 */
+}
+
+/* 썸네일 영역 영역 내부 이미지 비율 유지 고정 */
+#portfolio .post-thumbnail {
+    width: 100%;
+    aspect-ratio: 2756 / 1536;
+    /* 작성하신 이미지 원본 비율 지정 */
+    overflow: hidden;
+    position: relative;
+    border-radius: 25px;
+}
+
+#portfolio .post-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hover-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 2;
+    /* 이미지 위로 올라오도록 설정 */
+    border-radius: 25px;
 }
 
 .entry-header {
@@ -762,7 +883,27 @@ Icon for all respective meta
 
 
 
+/* 모든 섹션의 썸네일 컨테이너에 둥근 모서리 및 가림 처리 적용 */
+.post-thumbnail,
+.sns-bg,
+.portfolio-bg,
+.portfolio {
+    border-radius: 25px !important;
+    /* 모서리를 둥글게 설정 */
+    overflow: hidden !important;
+    /* 둥근 모서리 밖으로 나가는 이미지/비디오/오버레이 잘라내기 */
+    position: relative;
+    /* 내부 절대 위치 요소들의 기준점 유지 */
+}
 
+/* 이미지 및 호버 비디오가 둥근 영역에 꽉 차도록 세부 조정 */
+.post-thumbnail img,
+.sns-bg img,
+.portfolio-bg img,
+.hover-video {
+    border-radius: 25px;
+    object-fit: cover;
+}
 
 
 
@@ -772,12 +913,24 @@ Icon for all respective meta
 
 /* === SNS-design Section ===================================================== */
 .sns-item {
-    min-height: 235px;
+    position: relative; /* 캐릭터 배치의 기준점 */
+    overflow: visible;  /* 캐릭터가 밖으로 튀어나와도 보이게 함 */
+}
+
+.camera-char {
+    position: absolute;
+    top: -40px; /* 작업물 이미지 상단에서 위로 살짝 튀어나옴 */
+    right: 10px; /* 이미지 우측 정렬 */
+    width: 80px;
+    z-index: 10;
+    opacity: 0;
+    transform: translateY(20px); /* 아래에서 등장 준비 */
 }
 
 .sns-bg {
     /* margin-bottom: 20px; */
     border: 1px solid #eee;
+    border-radius: 25px;
 }
 
 .sns {
@@ -838,91 +991,108 @@ Icon for all respective meta
 
 
 
-/* === Artwork Section ===================================================== */
-.art_m {
-    margin: 40px 0;
-}
-
+/* ===== Artwork 대형화 및 우측 원점 격리 스타일 ===== */
 .works-section {
-    background-color: #f7f7f7;
-}
-
-.portfolio-item {
-    min-height: 235px;
-}
-
-.portfolio-bg {
-    /* background: #fff; */
-    /* padding-bottom: 5px; */
-    margin-bottom: 20px;
-    border: 1px solid #eee;
-}
-
-.portfolio {
     position: relative;
-    overflow: hidden;
+    padding: 200px 0 !important;
+    min-height: 140vh;
+    /* 타 섹션과의 확실한 거리 확보 */
+    z-index: 10;
 }
 
-.tt-overlay {
+.artwork-skew-container {
+    display: flex !important;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100% !important;
+    max-width: 1400px !important;
+    position: relative;
+}
+
+.skew-left-text-block {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 200px;
+    width: 40%;
+    z-index: 20;
+}
+
+/* 텍스트가 바뀔 때 자연스러운 전환 효과를 위한 스타일 */
+.artwork-text-switcher {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.skew-main-title {
+    font-size: 42px !important;
+    line-height: 1.2 !important;
+    margin-bottom: 25px !important;
+    color: #003817 !important;
+    text-transform: none !important;
+}
+
+.skew-desc-list p {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #666;
+}
+
+.skew-right-list-block {
+    width: 55%;
+    height: 70vh;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 200px;
+    overflow: visible;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    /* 우측 끝으로 정렬 */
+}
+
+/* 원점을 오른쪽 화면 정바깥 영역으로 배치 */
+.circle-pivot-center {
+    position: relative;
+    width: 1px;
+    height: 1px;
+    right: -150%;
+    /* 화면 오른쪽 끝 라인 너머 */
+    top: 50%;
+}
+
+/* 카드를 대형화하고 겹치지 않도록 세팅 */
+.rotator-card-item {
     position: absolute;
-    background-color: rgba(26, 30, 31, 0.85);
+    width: 580px !important;
+    /* 하나의 작업물이 웅장하게 보이도록 대형화 */
+    aspect-ratio: 4 / 3;
+    background: #f4f4f5;
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.12);
+
+    /* 원점을 오른쪽 화면 바깥(1000px 뒤)으로 격리 설정 */
+    transform-origin: 1000px 50% !important;
+
+    left: -850px;
+    /* 원점으로부터 왼쪽 화면 안으로 들어오도록 오프셋 배치 */
+    top: -217px;
+    /* 세로 정중앙 배치 보정 */
+    opacity: 0;
+    /* 기본 상태는 투명하게 대기 */
+    will-change: transform, opacity;
+}
+
+.rotator-card-item a.image-link {
+    display: block;
     width: 100%;
     height: 100%;
-    opacity: 0;
 }
 
-.portfolio-info,
-.links,
-.tt-overlay {
-    -webkit-transition: all 400ms;
-    -moz-transition: all 400ms;
-    -o-transition: all 400ms;
-    transition: all 400ms;
-}
-
-.portfolio-info {
-    position: absolute;
-    bottom: -100%;
-    left: 0;
-    background-color: #008136;
-    color: #fff;
-    height: 45px;
+.rotator-card-item img {
     width: 100%;
-    text-align: center;
+    height: 100%;
+    object-fit: cover;
 }
-
-.portfolio:hover .tt-overlay,
-.portfolio:hover .links {
-    opacity: 1;
-    -webkit-transform: translate(0, 0);
-    -moz-transform: translate(0, 0);
-    -ms-transform: translate(0, 0);
-    -o-transform: translate(0, 0);
-    transform: translate(0, 0);
-}
-
-.portfolio:hover .portfolio-info {
-    bottom: 0;
-}
-
-.portfolio-info h3 {
-    font-size: 14px;
-    line-height: 45px;
-    font-weight: 500;
-    margin: 0;
-}
-
-
-
-.mfp-bottom-bar {
-    display: none;
-}
-
-
-
-
-
-
 
 
 
@@ -1478,7 +1648,7 @@ Resume Timeline
 }
 
 .contact-title img {
-    width: 15%;
+    width: 50%;
 }
 
 .contact-f {
@@ -1563,29 +1733,65 @@ Resume Timeline
  * Scroll to top
 /* ---------------------------------------------- */
 
+/* ===== 탑 이동 버튼 스타일 개편 ===== */
 .scroll-up {
     position: fixed;
     display: none;
+    /* 스크롤 100px 이상일 때 스크립트로 fadeIn 됩니다 */
     z-index: 999;
-    bottom: 1.8em;
-    right: 1.8em;
+    bottom: 2em;
+    right: 2em;
+    width: 110px;
+    /* 버튼 전체를 감싸는 적정 너비 */
 }
 
 .scroll-up a {
-    background-color: #008136;
     display: block;
-    width: 28px;
-    height: 28px;
-    text-align: center;
-    color: #fff;
-    font-size: 14px;
-    line-height: 28px;
+    position: relative;
+    width: 100%;
 }
 
-.scroll-up a:hover,
-.scroll-up a:active {
-    background-color: rgba(235, 235, 235, .8);
-    color: #222;
+/* 1번 이미지: 캐릭터 디폴트 스타일 및 둥둥 애니메이션 연결 */
+.scroll-up .char-btn {
+    width: 100px;
+    height: auto;
+    display: block;
+    margin-left: auto;
+    /* 우측 정렬 */
+    border-radius: 0;
+    animation: floatingChar 3s infinite ease-in-out;
+    /* 상시 둥둥 모션 */
+}
+
+/* 2번 이미지: 말풍선 기본 대기 스타일 */
+.scroll-up .top-bubble {
+    position: absolute;
+    top: -55px;
+    /* 캐릭터 위쪽 배치 */
+    right: 15px;
+    /* 캐릭터의 오른편 위쪽 매칭 */
+    width: 75px;
+    height: auto;
+    z-index: 10;
+    opacity: 0;
+    /* 평소에는 숨김 */
+    pointer-events: none;
+}
+
+/* 캐릭터가 위아래로 부드럽게 왕복하는 무중력 애니메이션 */
+@keyframes floatingChar {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+        /* 위로 8px 이동 */
+    }
+
+    100% {
+        transform: translateY(0);
+    }
 }
 
 /* ---------------------------------------------- /*
@@ -1671,34 +1877,23 @@ Resume Timeline
 /* ---------------------------------------------- */
 
 #tt-preloader {
-    background: #FFF;
-    bottom: 0;
-    left: 0;
     position: fixed;
-    right: 0;
     top: 0;
-    z-index: 9999;
-}
-
-#pre-status,
-.preload-placeholder {
-    background-image: url(../images/preloader.gif);
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 200px;
-    left: 50%;
-    margin: -100px 0 0 -100px;
-    position: absolute;
-    top: 50%;
-    width: 200px;
-}
-
-.preload-placeholder {
-    background: none;
     left: 0;
-    margin: 0;
-    text-align: center;
-    top: 65%;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.preload-text {
+    font-size: 32px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #333;
 }
 
 
@@ -1716,6 +1911,44 @@ Resume Timeline
 }
 
 /* === About Section === */
+.reveal-text {
+    overflow: hidden;
+    line-height: 1.4;
+}
+
+/* 스크립트에 의해 분할될 글자들의 기본 상태 */
+.reveal-text .char {
+    display: inline-block;
+    will-change: transform, opacity;
+}
+
+.highlight-point {
+    position: relative;
+    font-weight: 700;
+    color: #111;
+    z-index: 1;
+    display: inline-block;
+}
+
+/* 형광펜 효과를 낼 밑줄 레이어 */
+.highlight-point::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 2px;
+    /* 글자 하단 배치 */
+    width: 100%;
+    height: 35%;
+    /* 글자 높이의 35% 두께 */
+    background-color: rgba(46, 204, 113, 0.3);
+    /* 이미지의 아이덴티티 녹색 계열 투명도 반영 */
+    z-index: -1;
+    transform: scaleX(0);
+    /* 초기 상태에는 가로 크기 0 */
+    transform-origin: left center;
+    /* 왼쪽에서부터 그어지도록 기준점 설정 */
+}
+
 .short-info {
     margin-bottom: 40px;
 }
