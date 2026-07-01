@@ -9,7 +9,7 @@
     content="onepage, resume, CV HTML template, personal Vcard, html resume, free resume template, free HTML template, free bootstrap template, personal portfolio, free html portfolio">
   <meta name="author" content="http://trendytheme.net/">
 
-  <title>Yeongeun Portfolio</title>
+  <title>YoungJuSEO Portfolio</title>
 
   <!-- Web Fonts -->
   <link rel="stylesheet"
@@ -46,12 +46,15 @@
 </head>
 
 <body>
-  <!-- Preloader 
+  <!-- Preloader  -->
+  <!-- Preloader -->
   <div id="tt-preloader">
     <div id="pre-status">
-      <div class="preload-placeholder"></div>
+      <div class="preload-text">LOADING</div> <!-- 텍스트 애니메이션용 클래스 추가 -->
     </div>
-  </div>-->
+  </div>
+  <!-- 하프톤 애니메이션 영역 추가 -->
+  <div class="mouse-wave-bg"></div>
 
   <!-- Home Section -->
   <section id="home" data-stellar-vertical-offset="50" data-stellar-background-ratio="0.2">
@@ -108,37 +111,44 @@
             <div class="myphoto">
               <img src="./assets/images/effect_01.png" alt="effect01" class="effect01">
               <img src="./assets/images/effect_02.png" alt="effect02" class="effect02">
-              <img src="./assets/images/Note.png" alt="note" class="note">
+              <!-- <img src="./assets/images/Note.png" alt="note" class="note"> -->
             </div>
           </div>
         </div> <!-- col-md-4 -->
 
         <div class="col-md-7 col-md-pull-4">
           <div class="short-info wow fadeInUp about_m">
-            <h3>스포이드같은 디자이너<br>
-              서영주입니다.
+            <h3 class="reveal-text"> 사람의 마음에 다정하게 스며드는 <br>디자이너 서영주입니다.
             </h3>
-            <p>안녕하세요, 스포이드같은 디자이너 서영주입니다.</p>
-            <p>이 포트폴리오에는 단단한 기초 위에 오래도록 영향을 줄 수 있는 디자인을 만들고자 한 저의 여정이 담겨 있습니다.<br>
-              끊임없이 배우고 성장하며, '길영(永)'처럼 끝없이 이어지는 가치를 추구하는 디자이너로서 저의 이야기를 함께 봐주시길
-              바랍니다.</p>
+            <p>안녕하세요, 새로운 배움을 유연하게 빨아들이고 사용자 마음에 꼭 필요한 비주얼을 전하는
+              <span class="hl-trigger-container">
+                <span class="highlight-text">‘스포이드 같은 디자이너’</span>
+                <i class="animated-bg-bar"></i>
+              </span>
+              서영주입니다.
+
+              미술을 향한 열정을 현실적으로 지키고자 심리학과에 진학해 미술 심리를 배웠으나, 마음을 단순히 해석하고 진단하는 것에서 머무르는 학문적 한계를 마주했습니다.
+
+              이에 수동적인 해석을 넘어, 사람들의 일상과 감정을 능동적이고 긍정적인 방향으로 직접 치유해 나가는 ‘디자인’을 평생의 도구로 선택했습니다.
+
+            </p>
+            <p>사람에 대한 깊은 탐색과 심리학적 논리를 바탕으로, 사용자의 마음에 가장 편안하고 든든하게 스며드는 디자인 한 방울을 떨어뜨리겠습니다.</p>
           </div>
 
           <div class="short-info wow fadeInUp short-info2">
-            <ul class="list-check hashtag tag_m">
-              <li><span>#웹퍼블리셔</span></li>
-              <li class="bg_red"><span>#웹디자이너</span></li>
-              <li><span>#UIUX디자인</span></li>
-              <!-- <li><span>#</span></li> -->
-              <!-- <li><span>#기획력겸비</span></li> -->
-            </ul>
-            <ul class="list-check hashtag">
-              <li><span>#적응력</span></li>
-              <li><span>#흡수력</span></li>
-              <li><span>#피드백 수용력</span></li>
-              <li><span>#200%</span></li>
-              <li><span>#책임감</span></li>
-            </ul>
+            <div class="hashtag-split-zone">
+              <!-- 레퍼런스의 h2 단어 쪼개기 효과를 해시태그 리스트 래퍼에 적용합니다 -->
+              <div class="hashtag-headline">
+                <span class="tag-word">#웹퍼블리셔</span>
+                <span class="tag-word bg_green_point">#웹디자이너</span>
+                <span class="tag-word">#UIUX디자인</span>
+                <span class="tag-word">#적응력</span>
+                <span class="tag-word">#흡수력</span>
+                <span class="tag-word">#피드백_수용력</span>
+                <span class="tag-word">#200%</span>
+                <span class="tag-word">#책임감</span>
+              </div>
+            </div>
           </div>
 
         </div>
@@ -167,10 +177,12 @@
       <div class="row">
         <div class="col-sm-6">
           <article class="blog-post-wrapper">
-            <a href="./assets/guide/bibx.html" target="_blank">
+            <a href="./assets/booklight_ebook/책볕-compressed.pdf" target="_blank">
               <div class="figure">
                 <div class="post-thumbnail">
                   <img src="assets/images/portfolio_1.jpeg" class="img-responsive " alt="BI,BX스타일가이드">
+                  <video src="./assets/video/portfolio_video1.mp4" muted playsinline class="hover-video"
+                    style="display:none; width:100%; height:100%; object-fit:cover;"></video>
                 </div>
               </div><!-- /.figure -->
               <header class="entry-header">
@@ -211,23 +223,23 @@
         </div><!-- /.col-md-4 -->
         <div class="col-sm-6">
           <article class="blog-post-wrapper">
-            <a href="./assets/guide/web.html" target="_blank">
+            <a href="./assets/getcha_ebook/겟차 포트폴리오(축소)-compressed.pdf" target="_blank">
               <div class="figure">
                 <div class="post-thumbnail">
-                  <img src="assets/images/portfolio_2.jpeg" class="img-responsive " alt="Web스타일가이드">
-                </div>
-              </div><!-- /.figure -->
-              <header class="entry-header">
-                <div class="post-meta">
-                  <span class="the-category">
-                    GET-CHA Guide
-                  </span>
-                </div>
-                <h2 class="entry-title">브랜드 아이덴티티(로고디자인/목업)</h2>
-                <hr>
-                <div class="entry-meta">
-                </div><!-- .entry-meta -->
-              </header><!-- .entry-header -->
+                  <img src="assets/images/portfolio_2.jpg" class="img-responsive " alt="Web스타일가이드">
+                  <video src="./assets/video/hero_video2.mp4" muted playsinline class="hover-video"></video>
+                </div><!-- /.figure -->
+                <header class="entry-header">
+                  <div class="post-meta">
+                    <span class="the-category">
+                      GET-CHA Guide
+                    </span>
+                  </div>
+                  <h2 class="entry-title">브랜드 아이덴티티(로고디자인/목업)</h2>
+                  <hr>
+                  <div class="entry-meta">
+                  </div><!-- .entry-meta -->
+                </header><!-- .entry-header -->
             </a>
           </article>
         </div><!-- /.col-sm-4 -->
@@ -278,11 +290,13 @@
       <div class="row">
 
         <div class="sns-item col-xs-6 col-sm-4 col-md-3">
+          <img src="assets/images/my_icon_camera.png" alt="my_icon_camera" class="camera-char">
           <div class="sns-bg">
+
             <div class="sns">
               <a class="image-link" href="assets/images/sns/sns_full_1.png">
-                <div class="sns-overlay"></div>
                 <img src="assets/images/sns/sns_1.png" alt="sns디자인 첫번째">
+                <div class="sns-overlay"></div>
                 <div class="sns-info">
                   <h3>GIFTBOX - GETCHA</h3>
                 </div><!-- /.sns-info -->
@@ -308,11 +322,11 @@
         <div class="sns-item col-xs-6 col-sm-4 col-md-3">
           <div class="sns-bg">
             <div class="sns">
-              <a class="image-link" href="assets/images/sns/sns_not.png">
+              <a class="image-link" href="assets/images/sns/sns_full_3.png">
                 <div class="sns-overlay"></div>
-                <img src="assets/images/sns/sns_3.png" alt="sns디자인 세번째">
+                <img src="assets/images/sns/sns_3.jpg" alt="sns디자인 세번째">
                 <div class="sns-info">
-                  <h3>청소홍보 - 영클린</h3>
+                  <h3>레시피 추천 - GETCHA</h3>
                 </div><!-- /.sns-info -->
               </a>
             </div><!-- /.sns -->
@@ -322,11 +336,11 @@
         <div class="sns-item col-xs-6 col-sm-4 col-md-3">
           <div class="sns-bg">
             <div class="sns">
-              <a class="image-link" href="assets/images/sns/sns_not.png">
+              <a class="image-link" href="assets/images/sns/sns_full_4.png">
                 <div class="sns-overlay"></div>
                 <img src="assets/images/sns/sns_4.png" alt="sns디자인 네번째">
                 <div class="sns-info">
-                  <h3>블랙프라이데이 - 영쓰마켓</h3>
+                  <h3>실크홍보 - 진주실크</h3>
                 </div><!-- /.sns-info -->
               </a>
             </div><!-- /.sns -->
@@ -341,9 +355,70 @@
 
 
   <!-- Artwork Section -->
+  <!-- Artwork Section: 원점 우측 격리 및 텍스트 동기화 구조 -->
+  <section id="artwork" class="works-section section-padding">
+    <div class="container artwork-skew-container">
+
+      <!-- 왼쪽 고정 텍스트 영역 (동적으로 글자가 바뀝니다) -->
+      <div class="skew-left-text-block">
+
+        <!-- 실시간으로 변경될 텍스트 컨테이너 -->
+        <div class="artwork-text-switcher">
+          <h2 class="skew-main-title" id="art-title">Artwork 01</h2>
+          <div class="skew-desc-list" id="art-desc">
+            <p>Creative Design</p>
+            <p>Visual Asset Detail Description</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 오른쪽 고정 원점 회전 영역 -->
+      <div class="skew-right-list-block">
+        <div class="circle-pivot-center">
+
+          <!-- data 속성을 사용하여 각 카드별 매칭될 텍스트를 저장합니다 -->
+          <div class="rotator-card-item" data-index="0" data-title="SSOCK SYUK 브랜딩"
+            data-desc="Visual Asset / 포스터 디자인 가이드라인 제작">
+            <a class="image-link" href="assets/images/work_1.jpg">
+              <div class="tt-overlay"></div>
+              <img src="assets/images/work_face_1.jpg" alt="Artwork 1">
+            </a>
+          </div>
+
+          <div class="rotator-card-item" data-index="1" data-title="MERA 혼주 넥타이"
+            data-desc="Brand Identity / 패키지 및 팝업 배너 디자인">
+            <a class="image-link" href="assets/images/work_2.jpg">
+              <div class="tt-overlay"></div>
+              <img src="assets/images/work_face_2.jpg" alt="Artwork 2">
+            </a>
+          </div>
+
+          <div class="rotator-card-item" data-index="2" data-title="오설록 프로모션"
+            data-desc="Web Design / 웹 이벤트 및 UI 배너 가로형 리뉴얼">
+            <a class="image-link" href="assets/images/work_3.jpg">
+              <div class="tt-overlay"></div>
+              <img src="assets/images/work_face_3.jpg" alt="Artwork 3">
+            </a>
+          </div>
+
+          <div class="rotator-card-item" data-index="3" data-title="베스킨라빈스 31"
+            data-desc="SNS Design / 인스타그램 이벤트 피드 배너 기획">
+            <a class="image-link" href="assets/images/work_4.jpg">
+              <div class="tt-overlay"></div>
+              <img src="assets/images/work_face_4.jpg" alt="Artwork 4">
+            </a>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section><!-- End Artwork Section -->
+
+  <!-- Video Section -->
   <section id="artwork" class="works-section section-padding">
     <div class="container add_effect">
-      <h2 class="section-title wow fadeInUp art_m">Artwork</h2>
+      <h2 class="section-title wow fadeInUp art_m">Video</h2>
 
       <div class="effect_all">
         <img src="./assets/images/img_effect/artwork_e_1.png" alt="효과1" class="c-1">
@@ -353,9 +428,11 @@
           <div class="portfolio-item col-xs-12 col-sm-4 col-md-4">
             <div class="portfolio-bg">
               <div class="portfolio">
-                <a class="image-link" href="assets/images/work_1.jpg">
+                <a class="image-link" href="assets/images/video_thumb01.png">
                   <div class="tt-overlay"></div>
-                  <img src="assets/images/work_face_1.jpg" alt="ticket design">
+                  <img src="assets/images/video_thumb01.png" alt="ticket design">
+                  <video src="./assets/video/hero_video2.mp4" muted playsinline class="hover-video"
+                    style="display:none; width:100%; height:100%; object-fit:cover;"></video>
                   <div class="portfolio-info">
                     <h3>포스터 디자인</h3>
                   </div><!-- /.portfolio-info -->
@@ -367,11 +444,11 @@
           <div class="portfolio-item col-xs-12 col-sm-4 col-md-4">
             <div class="portfolio-bg">
               <div class="portfolio">
-                <a href="./assets/detailpage/detail_02.html">
+                <a class="image-link" href="assets/images/work_2.jpg">
                   <div class="tt-overlay"></div>
                   <img src="assets/images/work_face_2.jpg" alt="poster design">
                   <div class="portfolio-info">
-                    <h3>가전제품 상세페이지</h3>
+                    <h3>MERA 히어로배너</h3>
                   </div><!-- /.portfolio-info -->
                 </a>
               </div><!-- /.portfolio -->
@@ -437,7 +514,7 @@
         </div><!-- /#grid -->
       </div><!-- /.row -->
     </div><!-- /.container -->
-  </section><!-- End Artwork Section -->
+  </section><!-- End Video Section -->
 
 
   <!-- Resume Section -->
@@ -495,7 +572,7 @@
                   </div> <!-- /timeline-content -->
                 </div> <!-- /timeline-panel -->
               </li>
-              
+
               <li>
                 <div class="posted-date">
                   <span class="month"></span>
@@ -512,7 +589,7 @@
                 </div> <!-- /timeline-panel -->
               </li>
 
-              <li  class="timeline-inverted">
+              <li class="timeline-inverted">
                 <div class="posted-date">
                   <span class="month"></span>
                 </div><!-- /posted-date -->
@@ -544,7 +621,7 @@
                 </div> <!-- /timeline-panel -->
               </li>
 
-              <li  class="timeline-inverted">
+              <li class="timeline-inverted">
                 <div class="posted-date">
                   <span class="month"></span>
                 </div><!-- /posted-date -->
@@ -802,22 +879,31 @@
           <ul>
             <li>
               <h3>Q. 웹디자이너로 전향한 이유는?</h3>
-              <P>이전 직장에서 디자인 관련 업무를 맡게 되면서, 실무 경험의 기회를 얻었습니다. <span>추상적인 아이디어가 시각적으로 구체화되는 과정</span>과 그 <span>결과물이 웹사이트에
-                  적용되어 실제로 유용하게 사용되는 모습</span>을 보며 큰 매력을 느끼게 되었습니다. 단순히 시각적으로 아름다운 디자인을 넘어서 사용자들이 진정으로 필요로 하는 기능과 편의성을
-                갖춘 디자인을 만들어 가고 싶습니다.</P>
+              <P>
+                어릴 때부터 미술을 좋아하여 현실적인 접점이자 타협점으로 <span>미술 심리</span>를 배우기 위해 심리학과에 진학했습니다. 하지만 마주한 미술 심리는 이미 일어난 감정을 수동적으로
+                해석하고 진단하는 일에
+                가까웠습니다. 저는 해석에 멈추는 사람이 아니라, <span>사람들의 일상과 감정을 능동적이고 긍정적인 방향으로 직접 변화시키는 사람</span>이 되고 싶었습니다. 그렇기에 제가 가장
+                주도적으로 시각적인
+                가치를 설계하고 사람들의 일상에 편리한 영향을 미칠 수 있는 디자이너의 길로 나아가게 되었습니다.
+              </P>
             </li>
             <li>
               <h3>Q. 자신의 최대 강점은?</h3>
-              <P><span>어떤 일이든 주인의식을 가지고 주어진 역할에서 최선을 다하는 것</span>입니다. 지금까지 맡은 업무가 아무리 작은 일이라도 주인의식을 가지고 성실히 임해왔으며, 그 결과로
-                ‘일 잘하는 사람’이라는 평가를 받았습니다. 또한, 다른 사업체에서 스카웃 제의를 받는 등, 맡은 일에 대해 항상 좋은 피드백을 이어왔습니다. 앞으로도 주인의식과 책임감을 바탕으로 어떤
-                상황에서도 유의미한 마무리를 지을 수 있는 사람이 될 것입니다.</P>
+              <P>어떤 조직이나 팀에서도 모나지 않고 둥글게 융화되는 <span>뛰어난 친화성과 사회성</span>입니다. 새로운 환경이나 낯선 동료들 사이에서도 특유의 유연함으로 빠르게 녹아들며,
+                기획자·마케터·개발자 등
+                다양한 협업 파트너들과 마찰 없이 편안하게 소통합니다. 이러한 사회적 유연성을 바탕으로, 늦게 시작한 디자인 기술(웹디자인기능사, 컴퓨터그래픽스 등)을 빠르게 흡수할 수 있었습니다.
+                촬영부터 최종 산출물까지 주도적으로 책임지는 묵묵한 실행력에 둥글둥글한 친화력을 더해, 언제나 팀 전체에 기분 좋은 협업 시너지를 불어넣는 것이 저의 가장 큰 무기입니다.
+              </P>
             </li>
             <li>
               <h3>Q. 직장 및 사회에서 중요하게 생각하는 것은?</h3>
-              <P>저는 <span>신뢰</span>를 가장 중요한 가치로 여기고 있습니다. <span>동료들과의 신뢰</span>가 쌓였을 때, 문제가 발생해도 투명하게 소통하며 빠르게 해결책을 모색할
-                수 있었고, <span>고객과의
-                  약속</span>을 지키며 신뢰를 얻음으로써 브랜드 충성도를 높이는 데 기여할 수 있었습니다. 이러한 경험을 통해 저는 '신뢰'를 바탕으로 더 나은 결과를 창출하는 디자이너로
-                성장하고자 합니다.
+              <P>
+                동료 및 사용자와의 단단한 라포 형성입니다. 상호 신뢰와 공감을 바탕으로 한 <span>라포 형성</span>이야말로, 새로운 소속 집단에 안정적으로 적응하고 하나의 팀으로 움직이게
+                만드는 가장 중요한 첫
+                단계라고 믿기 때문입니다. 실제로 ‘지역내 위기청소년 멘토링 프로그램’ 안내 소책자를 편집 디자인할 때, 글을 읽는 아동과 보호자의 마음을 깊이 헤아려 큼직한 가독성 높은 서체와 싱그러운
+                녹색 테마를 적용했던 것도 시각적인 배려를 통해 라포를 형성하고자 하는 노력이었습니다. 팀 안에서는 따뜻한 동료애로 <span>깊은 유대감을 만드는 페이스메이커</span>로,
+                사용자에게는 <span>시각적 신뢰를 주는
+                  파트너</span>로 활약하겠습니다.
               </P>
             </li>
           </ul>
@@ -870,8 +956,14 @@
 
 
   <!-- Scroll-up -->
+  <!-- Scroll-up 개편 구조 -->
   <div class="scroll-up">
-    <a href="#home"><i class="fa fa-angle-up"></i></a>
+    <a href="#home">
+      <!-- 2번 이미지: 호버 시 캐릭터 오른편 위에서 등장할 말풍선 -->
+      <img src="assets/images/top.png" alt="Top" class="top-bubble">
+      <!-- 1번 이미지: 디폴트 상태의 캐릭터 얼굴 -->
+      <img src="assets/images/Face_and_right_hand_pointing_202607011540.png" alt="Character" class="char-btn">
+    </a>
   </div>
 
   <!-- Javascript files -->
@@ -887,7 +979,18 @@
   <script src="assets/js/jquery.shuffle.min.js"></script>
   <script src="assets/js/jquery.magnific-popup.min.js"></script>
   <script src="assets/js/jquery.fitvids.js"></script>
+
+  <!-- ⭐ GSAP 라이브러리 및 필수 플러그인 연동 (순서 엄수) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Flip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/TextPlugin.min.js"></script>
+
+  <!-- 커스텀 스크립트 파일은 무조건 라이브러리들보다 아래에 위치해야 합니다 -->
   <script src="assets/js/scripts.js"></script>
+</body>
+
+</html>
 </body>
 
 </html>
