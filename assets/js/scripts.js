@@ -356,7 +356,8 @@ jQuery(function ($) {
 
 $(document).ready(function () {
     // Portfolio의 post-thumbnail과 Video 영역의 portfolio 클래스를 모두 타겟팅합니다.
-    $('.post-thumbnail, .portfolio').on('mouseenter', function () {
+    // 단, 스와이퍼 비디오 카드(.video-slide)는 전용 스크립트로 동작하므로 제외합니다.
+    $('.post-thumbnail, .portfolio:not(.video-slide .portfolio)').on('mouseenter', function () {
         // 내부에 있는 비디오 태그를 탐색합니다.
         const $video = $(this).find('.hover-video');
 
@@ -602,6 +603,21 @@ $(document).ready(function () {
     }
 });
 
+// video (일반 비디오 리스트 호버 제어)
+$(document).ready(function () {
+    $('.portfolio:not(.video-slide .portfolio)').hover(
+        function () {
+            $(this).find('.hover-video').css('opacity', '1');
+            $(this).find('.hover-video')[0].play();
+        },
+        function () {
+            $(this).find('.hover-video').css('opacity', '0');
+            $(this).find('.hover-video')[0].pause();
+            $(this).find('.hover-video')[0].currentTime = 0;
+        }
+    );
+});
+
 
 // sns-design
 $(document).ready(function () {
@@ -625,7 +641,7 @@ $(document).ready(function () {
 // Resume 섹션 스크롤 애니메이션 (안정적인 기본 구현)
 $(document).ready(function () {
     if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
-        
+
         // Resume 섹션 내부의 항목들을 순차적으로 보여줌
         gsap.to(".resume-item", {
             scrollTrigger: {
@@ -640,4 +656,73 @@ $(document).ready(function () {
             ease: "power2.out"
         });
     }
+});
+
+
+// ==========================================================================
+// 12. Video Swiper & Hover GSAP Animation (스와이퍼 연동 및 설명글 슬라이딩 등장)
+// ==========================================================================
+$(document).ready(function () {
+    // 1. Swiper 인스턴스 초기화
+    const videoSwiper = new Swiper('.videoSwiper', {
+        slidesPerView: 1,
+        spaceBetween: 30,
+        loop: true,
+        autoplay: {
+            delay: 6000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true // 마우스 호버 시 일시적으로 자동 재생을 멈춤
+        },
+        navigation: {
+            nextEl: '.video-swiper-next',
+            prevEl: '.video-swiper-prev',
+        },
+        effect: 'fade', // 자연스러운 Fade 효과
+        fadeEffect: {
+            crossFade: true
+        }
+    });
+
+    // 2. 호버 시 비디오 플레이 및 오른쪽 설명문 좌 -> 우 모션 등장
+    $('.video-slide .portfolio').on('mouseenter', function () {
+        const $video = $(this).find('.hover-video');
+        const $desc = $(this).closest('.video-content-layout').find('.video-right-desc');
+
+        // 비디오 재생 처리
+        if ($video.length > 0) {
+            $video.show();
+            $video.css('opacity', '1');
+            $video[0].play();
+        }
+
+        // 데스크톱 해상도 이상에서만 우측 가이드문이 왼쪽에서 오른쪽으로 스르륵 밀려나오도록 GSAP 제어
+        if ($desc.length > 0 && typeof gsap !== "undefined" && window.innerWidth >= 768) {
+            gsap.fromTo($desc,
+                { opacity: 0, x: -50 },
+                { opacity: 1, x: 0, duration: 0.6, ease: "power2.out", overwrite: "auto" }
+            );
+        }
+    }).on('mouseleave', function () {
+        const $video = $(this).find('.hover-video');
+        const $desc = $(this).closest('.video-content-layout').find('.video-right-desc');
+
+        // 비디오 리셋
+        if ($video.length > 0) {
+            $video[0].pause();
+            $video[0].currentTime = 0;
+            $video.css('opacity', '0');
+            $video.hide();
+        }
+
+        // 설명글 서서히 복귀
+        if ($desc.length > 0 && typeof gsap !== "undefined" && window.innerWidth >= 768) {
+            gsap.to($desc, {
+                opacity: 0,
+                x: -50,
+                duration: 0.4,
+                ease: "power2.in",
+                overwrite: "auto"
+            });
+        }
+    });
 });
