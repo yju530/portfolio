@@ -559,9 +559,11 @@ video {
 .navbar-custom .nav li a:hover,
 .navbar-custom .nav li a:focus,
 .navbar-custom .navbar-nav>li.active>a {
-    background: none;
+    background: #d6ffe709;
+    border-radius: 50px;
     outline: 0;
     color: #008136;
+    box-shadow: 0px 0px 5px #003b122f;
 }
 
 .navbar-custom .navbar-brand {
@@ -1251,6 +1253,21 @@ Icon for all respective meta
         width: 100% !important;
         height: auto !important;
         opacity: 1 !important;
+    }
+}
+
+
+/* 모바일 반응형 처리 */
+@media (max-width: 768px) {
+    .video-content-wrapper {
+        flex-direction: column;
+    }
+    .video-container {
+        margin-right: 0 !important;
+        margin-bottom: 20px;
+    }
+    .image-container {
+        flex: 0 0 100% !important;
     }
 }
 
@@ -2470,4 +2487,197 @@ Resume Timeline
     width: 20%;
     top: 90%;
     right: -33%;
+}
+
+
+/* ==========================================================================
+   12. Video Swiper & Interaction Update (9:16 비율 반영 개편)
+   ========================================================================== */
+.videoSwiper {
+    width: 100%;
+    padding: 20px 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.video-content-layout {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 30px;
+    box-sizing: border-box;
+}
+
+.video-left-char {
+    flex: 0 0 22%;
+    max-width: 22%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; /* 캐릭터 이미지 자체를 하단 정렬 */
+    align-self: flex-end;  /* 부모 비디오 슬라이드 전체 영역에서 바닥(Bottom)에 붙도록 지정 */
+}
+
+.video-left-char img {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+/* 9:16 최적화 재생 구역 레이아웃 비율 */
+.video-center-player {
+    flex: 0 0 38%;
+    max-width: 38%;
+}
+
+.video-center-player .portfolio-bg {
+    width: 80%;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    margin-left: 30px;
+}
+
+.video-center-player .portfolio {
+    width: 100%;
+    /* ⭐ 핵심 요청 반영: 영상 및 플레이어 레이아웃의 비율을 정밀한 세로형 9:16 구조로 변경 */
+    aspect-ratio: 9 / 16;
+    position: relative;
+    cursor: pointer;
+}
+
+.video-center-player .video_thumb {
+    width: 100%;
+    height: 100%;
+    /* 세로로 길어진 비율 안에서 미디어가 잘리거나 찌그러지지 않도록 커버 처리 */
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.video-center-player .portfolio:hover .video_thumb {
+    transform: scale(1.05);
+}
+
+.video-center-player .hover-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 2;
+    opacity: 0;
+    display: none;
+    border-radius: 25px;
+    pointer-events: none;
+}
+
+.video-right-desc {
+    flex: 0 0 32%;
+    max-width: 32%;
+    padding-left: 15px;
+    text-align: left;
+    opacity: 0;
+    transform: translateX(-50px);
+    box-sizing: border-box;
+}
+
+.video-right-desc h3 {
+    font-family: 'Paperlogy-5Medium';
+    font-size: 22px;
+    line-height: 1.4;
+    color: #008136;
+    margin-bottom: 15px;
+    text-transform: none;
+}
+
+.video-right-desc p {
+    font-family: 'Pretendard';
+    font-size: 15px;
+    line-height: 1.7;
+    color: #555;
+    margin: 0;
+    font-weight: 500;
+}
+
+/* Swiper navigation custom styles */
+.video-swiper-controls {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    gap: 25px;
+    /* margin-top: 35px; */
+}
+
+.video-swiper-prev,
+.video-swiper-next {
+    width: 46px;
+    height: 46px;
+    border: 2px solid #008136;
+    border-radius: 50%;
+    color: #008136;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.video-swiper-prev:hover,
+.video-swiper-next:hover {
+    background-color: #008136;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 129, 54, 0.3);
+}
+
+/* Responsive Media Queries */
+@media (max-width: 991px) {
+    .video-right-desc h3 {
+        font-size: 18px;
+    }
+    .video-right-desc p {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 767px) {
+    .video-content-layout {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+    
+    .video-left-char,
+    .video-center-player,
+    .video-right-desc {
+        flex: 0 0 100%;
+        max-width: 100%;
+        width: 100%;
+    }
+    
+    .video-left-char img {
+        max-width: 150px;
+        margin: 0 auto;
+    }
+    
+    /* 모바일 반응형 최적화 시에도 세로형이 너무 크지 않도록 너비 제어 */
+    .video-center-player {
+        max-width: 320px;
+        margin: 0 auto;
+    }
+    
+    .video-right-desc {
+        padding-left: 0;
+        text-align: center;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+    
+    .video-right-desc h3 {
+        margin-bottom: 8px;
+    }
 }
