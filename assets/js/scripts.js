@@ -402,6 +402,29 @@ jQuery(function ($) {
             });
         }
 
+        $(document).ready(function () {
+            /* 1. 비디오 섹션 재생 제어 */
+            const $videos = $('#video-section video'); // Video 섹션 내 비디오만 타겟팅
+
+            $videos.each(function () {
+                const video = this;
+                video.setAttribute('playsinline', '');
+
+                // 영상이 끝까지 재생되면 처음부터 반복
+                video.addEventListener('ended', function () {
+                    video.currentTime = 0;
+                    video.play();
+                });
+            });
+
+            /* 2. Top 버튼 동작 보완 */
+            const $scrollUp = $(".scroll-up");
+            $scrollUp.on("click", function (e) {
+                e.preventDefault();
+                $('html, body').animate({ scrollTop: 0 }, 600);
+            });
+        });
+
         // B. [PC 호버 & 모바일 클릭 재생 + Swiper 자동재생 멈춤 통합 로직]
         const isMobile = () => window.matchMedia("(max-width: 767px)").matches;
 
