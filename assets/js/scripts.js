@@ -138,18 +138,6 @@ jQuery(function ($) {
         }
     });
 
-
-    $(document).ready(function () {
-        $(".navbar-toggle").on("click", function () {
-            $(this).toggleClass("is-active");
-        });
-
-        // 메뉴 항목을 클릭하면 다시 햄버거 모양으로 복구 (옵션)
-        $(".navbar-collapse a").on("click", function () {
-            $(".navbar-toggle").removeClass("is-active");
-        });
-    });
-
     // -------------------------------------------------------------
     // Back To Top
     // -------------------------------------------------------------
