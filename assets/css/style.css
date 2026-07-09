@@ -387,13 +387,16 @@ video {
 .header {
     position: fixed;
     width: 100%;
-    top: -100px; /* 초기 화면 진입 시 숨김 처리 */
+    top: -100px;
+    /* 초기 화면 진입 시 숨김 처리 */
     z-index: 9999;
-    transition: top 0.4s ease; /* 스크롤 시 부드럽게 고정되도록 애니메이션 처리 */
+    transition: top 0.4s ease;
+    /* 스크롤 시 부드럽게 고정되도록 애니메이션 처리 */
 }
 
 .header.sticky-nav {
-    top: 0; /* 모바일 및 데스크톱 스크롤 시 상단에 들뜸 없이 완벽하게 밀착 고정 */
+    top: 0;
+    /* 모바일 및 데스크톱 스크롤 시 상단에 들뜸 없이 완벽하게 밀착 고정 */
 }
 
 .header::after {
@@ -418,7 +421,8 @@ video {
     align-items: center;
     padding: 10px 40px;
     border-radius: 50px;
-    background: rgba(144, 215, 163, 0.45) !important; /* 싱그러운 라임-민트빛 투명 글래스 디자인 */
+    background: rgba(144, 215, 163, 0.45) !important;
+    /* 싱그러운 라임-민트빛 투명 글래스 디자인 */
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -437,11 +441,11 @@ video {
     width: 100%;
 }
 
-.navbar-custom .navbar-nav > li {
+.navbar-custom .navbar-nav>li {
     gap: 4px;
 }
 
-.navbar-custom .navbar-nav > li > a {
+.navbar-custom .navbar-nav>li>a {
     display: inline-block;
     color: #000000;
     font-size: 14px;
@@ -452,10 +456,10 @@ video {
 
 /* [데스크톱 전용] 활성화 및 호버 시 가로 알약(Pill) 인디케이터 스타일 */
 .navbar-custom .nav li.active a,
-.navbar-custom .nav li.active > a,
+.navbar-custom .nav li.active>a,
 .navbar-custom .nav li a:hover,
 .navbar-custom .nav li a:focus,
-.navbar-custom .navbar-nav > li.active > a {
+.navbar-custom .navbar-nav>li.active>a {
     background: rgba(255, 255, 255, 0.4) !important;
     border-radius: 50px;
     outline: 0;
@@ -491,22 +495,22 @@ video {
     left: 0;
 }
 
-.navbar-custom .navbar-nav > li:hover .dropdown-menu {
+.navbar-custom .navbar-nav>li:hover .dropdown-menu {
     display: block;
     opacity: 1;
     visibility: visible;
     margin-top: -2px;
 }
 
-.navbar-custom .dropdown-menu > li {
+.navbar-custom .dropdown-menu>li {
     border-bottom: 1px solid #F0F0F0;
 }
 
-.navbar-custom .dropdown-menu > li:last-child {
+.navbar-custom .dropdown-menu>li:last-child {
     border-bottom: 0;
 }
 
-.navbar-custom .dropdown-menu > li > a {
+.navbar-custom .dropdown-menu>li>a {
     padding: 10px 20px;
     color: #333;
     font-size: 14px;
@@ -518,9 +522,9 @@ video {
     font-size: 18px;
 }
 
-.navbar-custom .nav .open > a,
-.navbar-custom .dropdown-menu > li > a:hover,
-.navbar-custom .dropdown-menu > li > a:focus {
+.navbar-custom .nav .open>a,
+.navbar-custom .dropdown-menu>li>a:hover,
+.navbar-custom .dropdown-menu>li>a:focus {
     background: #f5f5f5;
 }
 
@@ -543,7 +547,8 @@ video {
 }
 
 .navbar-custom .navbar-toggle .icon-bar {
-    background: #ffffff; /* 가독성을 위해 흰색으로 고정 */
+    background: #ffffff;
+    /* 가독성을 위해 흰색으로 고정 */
 }
 
 /* 활성화 시 삼선 햄버거가 X 자로 교차 전환되는 모션 */
@@ -561,6 +566,7 @@ video {
 
 /* 5. 미디어 쿼리 모바일 반응형 설정 (가장 미시적 제어) */
 @media (max-width: 767px) {
+
     /* 모바일용 컨테이너 확장 및 블러 강화 */
     .glass-pill-nav {
         width: 90%;
@@ -569,7 +575,7 @@ video {
         flex-wrap: wrap;
         padding: 12px 24px;
         border-radius: 30px;
-        backdrop-filter: blur(25px); 
+        backdrop-filter: blur(25px);
         -webkit-backdrop-filter: blur(25px);
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     }
@@ -586,33 +592,39 @@ video {
         padding: 5px 0;
     }
 
-    .navbar-nav > li {
+    .navbar-nav>li {
         display: block;
         text-align: center;
         margin: 8px 0;
     }
 
-    .navbar-nav > li > a {
-        color: #003817 !important; /* 모바일에서 눈이 편안한 다크그린 폰트 적용 */
+    .navbar-nav>li>a {
+        color: #003817 !important;
+        /* 모바일에서 눈이 편안한 다크그린 폰트 적용 */
         font-size: 15px;
         font-weight: 700;
         padding: 10px 20px;
         display: inline-block;
-        border-radius: 0px; /* 알약 형태 제거 */
+        border-radius: 0px;
+        /* 알약 형태 제거 */
         transition: all 0.3s ease;
     }
 
     /* ⭐ [핵심 해결책] 모바일에서는 배경 '알약' 디자인을 완전히 비활성화합니다.
        이를 통해 모바일 수직 리스트 내부에서 미관을 해치던 둥근 이중 캡슐(Double-Wrap) 현상을 근본적으로 차단합니다. */
     .navbar-custom .nav li.active a,
-    .navbar-custom .nav li.active > a,
+    .navbar-custom .nav li.active>a,
     .navbar-custom .nav li a:hover,
     .navbar-custom .nav li a:focus,
-    .navbar-custom .navbar-nav > li.active > a {
-        background: transparent !important; /* 모바일 알약 배경 제거 */
-        box-shadow: none !important; /* 그림자 제거 */
-        border-radius: 0px !important; /* 둥근 곡률 제거 */
-        color: #008136 !important; /* 텍스트 강조만 적용 */
+    .navbar-custom .navbar-nav>li.active>a {
+        background: transparent !important;
+        /* 모바일 알약 배경 제거 */
+        box-shadow: none !important;
+        /* 그림자 제거 */
+        border-radius: 0px !important;
+        /* 둥근 곡률 제거 */
+        color: #008136 !important;
+        /* 텍스트 강조만 적용 */
         font-weight: 800;
     }
 }
@@ -1109,25 +1121,31 @@ Icon for all respective meta
 }
 
 
-/* ===== Artwork 대형화 및 우측 원점 격리 스타일 ===== */
-.works-section {
+/* =============================================================
+   ⭐ Artwork & Video 섹션 모바일 반응형 및 레이아웃 최적화 통합 코드
+   ============================================================= */
+
+/* =============================================================
+   [1] PC/데스크톱 기본 레이아웃 - Artwork 섹션 대형화 및 우측 원점 격리
+   ============================================================= */
+#artwork {
     position: relative;
-    padding: 200px 0 !important;
+    padding: 200px 0;
     min-height: 140vh;
-    /* 타 섹션과의 확실한 거리 확보 */
+    /* 타 섹션과의 확실한 스크롤 여백 확보 */
     z-index: 10;
 }
 
-.artwork-skew-container {
-    display: flex !important;
+#artwork .artwork-skew-container {
+    display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    width: 100% !important;
-    max-width: 1400px !important;
+    width: 100%;
+    max-width: 1400px;
     position: relative;
 }
 
-.skew-left-text-block {
+#artwork .skew-left-text-block {
     position: -webkit-sticky;
     position: sticky;
     top: 200px;
@@ -1135,26 +1153,26 @@ Icon for all respective meta
     z-index: 20;
 }
 
-/* 텍스트가 바뀔 때 자연스러운 전환 효과를 위한 스타일 */
-.artwork-text-switcher {
+/* 텍스트가 바뀔 때 자연스러운 페이드 전환 효과를 위한 트랜지션 */
+#artwork .artwork-text-switcher {
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.skew-main-title {
-    font-size: 42px !important;
-    line-height: 1.2 !important;
-    margin-bottom: 25px !important;
-    color: #003817 !important;
-    text-transform: none !important;
+#artwork .skew-main-title {
+    font-size: 42px;
+    line-height: 1.2;
+    margin-bottom: 25px;
+    color: #003817;
+    text-transform: none;
 }
 
-.skew-desc-list p {
+#artwork .skew-desc-list p {
     font-size: 16px;
     line-height: 1.8;
     color: #666;
 }
 
-.skew-right-list-block {
+#artwork .skew-right-list-block {
     width: 55%;
     height: 70vh;
     position: -webkit-sticky;
@@ -1164,11 +1182,10 @@ Icon for all respective meta
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    /* 우측 끝으로 정렬 */
 }
 
-/* 원점을 오른쪽 화면 정바깥 영역으로 배치 */
-.circle-pivot-center {
+/* 원형 회전 구동의 축이 되는 원점을 오른쪽 화면 바깥 영역으로 배치 */
+#artwork .circle-pivot-center {
     position: relative;
     width: 1px;
     height: 1px;
@@ -1177,11 +1194,11 @@ Icon for all respective meta
     top: 10%;
 }
 
-/* 카드를 대형화하고 겹치지 않도록 세팅 */
-.rotator-card-item {
+/* 카드를 대형화하고 겹치지 않도록 초기 세팅 */
+#artwork .rotator-card-item {
     position: absolute;
     width: 680px;
-    /* 하나의 작업물이 웅장하게 보이도록 대형화 */
+    /* 개별 작업물이 돋보이도록 대형화 */
     aspect-ratio: 4 / 3;
     background: #f4f4f5;
     border-radius: 12px;
@@ -1190,121 +1207,125 @@ Icon for all respective meta
 
     /* 원점을 오른쪽 화면 바깥(1000px 뒤)으로 격리 설정 */
     transform-origin: 1000px 50% !important;
+    /* GSAP 라이브러리 인라인 스타일 오버라이드를 위해 유지 */
 
     left: -950px;
     /* 원점으로부터 왼쪽 화면 안으로 들어오도록 오프셋 배치 */
     top: -217px;
     /* 세로 정중앙 배치 보정 */
     opacity: 0;
-    /* 기본 상태는 투명하게 대기 */
+    /* 기본 대기 상태 투명화 */
     will-change: transform, opacity;
 }
 
-.rotator-card-item a.image-link {
+#artwork .rotator-card-item a.image-link {
     display: block;
     width: 100%;
     height: 100%;
 }
 
-.rotator-card-item img {
+#artwork .rotator-card-item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
+/* =============================================================
+   [2] 공통 반응형 및 비디오 가로폭 처리 (Max-width: 768px)
+   ============================================================= */
+@media (max-width: 768px) {
+    .video-content-wrapper {
+        display: flex;
+        flex-direction: column;
+    }
 
-/* ⭐ [Artwork 섹션 모바일 순환/원형 회전 기능 전면 활성화 최적화] */
+    /* ID 선택자와 계층을 더해 !important를 자연스럽게 배제 */
+    .video-content-wrapper .video-container {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+
+    .video-content-wrapper .image-container {
+        flex: 0 0 100%;
+    }
+}
+
+/* =============================================================
+   [3] 모바일 초정밀 레이아웃 전환 (Max-width: 767px)
+   ============================================================= */
 @media (max-width: 767px) {
-    .works-section {
-        padding: 100px 0 !important;
+
+    /* Artwork 섹션 전반적인 패딩 및 레이아웃 재정비 */
+    #artwork {
+        padding: 100px 0;
         min-height: 100vh;
     }
 
-    .works-section .artwork-skew-container {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        justify-content: flex-start !important;
-        width: 100% !important;
-        padding: 0 15px !important;
-        height: auto !important;
+    #artwork .artwork-skew-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        width: 100%;
+        padding: 0 15px;
     }
 
-    .works-section .skew-left-text-block {
-        position: relative !important;
-        top: auto !important;
-        width: 100% !important;
-        margin-bottom: 20px !important;
+    #artwork .skew-left-text-block {
+        position: relative;
+        top: auto;
+        width: 100%;
+        margin-bottom: 20px;
         text-align: center;
     }
 
-    .works-section .skew-main-title {
-        font-size: 28px !important;
-        margin-bottom: 10px !important;
+    #artwork .skew-main-title {
+        font-size: 28px;
+        margin-bottom: 10px;
     }
 
-    .works-section .skew-desc-list p {
+    #artwork .skew-desc-list p {
         font-size: 14px;
         line-height: 1.6;
     }
 
-    .works-section .skew-right-list-block {
-        width: 100% !important;
-        height: 45vh !important;
-        position: relative !important;
-        top: auto !important;
-        display: flex !important;
+    #artwork .skew-right-list-block {
+        width: 100%;
+        height: 45vh;
+        position: relative;
+        top: auto;
+        display: flex;
         align-items: center;
         justify-content: center;
-        overflow: visible !important;
+        overflow: visible;
     }
 
-    /* 원점을 모바일 우측 화면 바깥 먼 곳으로 배치하여 부드러운 둥근 궤적 확보 */
-    .works-section .circle-pivot-center {
-        position: absolute !important;
-        width: 1px !important;
-        height: 1px !important;
-        right: -820px !important;
-        top: 50% !important;
+    /* 원형 궤적 중심 원점을 모바일 뷰포트 크기에 맞춰 정밀 격리 */
+    #artwork .circle-pivot-center {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        right: -820px;
+        top: 50%;
     }
 
-    /* GSAP 스크롤 타임라인 궤적 공식(x: -1000px, transform-origin: 1000px)에 맞춘 크기 및 모바일 중앙 배치 */
-    .works-section .rotator-card-item {
-        position: absolute !important;
-        width: 600px !important; /* 모바일 특화 아담한 정밀 비율 사이즈 */
-        aspect-ratio: 4 / 3 !important;
-        border-radius: 12px !important;
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15) !important;
-        left: -440px !important; /* GSAP 오프셋 연산을 거친 후 뷰포트 정확히 수평 중앙에 안착 */
-        top: -105px !important;  /* 카드 세로 중앙 정렬 보정 */
-        transform-origin: 1000px 50% !important; /* 원본 GSAP 스케일 준수 및 안정적인 회전 구현 */
-        margin-bottom: 0 !important;
-        overflow: hidden !important;
-        opacity: 0; /* GSAP 스크롤 트리거 가시성 및 페이드 전환과 연동 */
-        visibility: visible !important;
+    /* 모바일 전용 컴팩트 사이즈 3D 원형 휠 카드 구현 */
+    #artwork .rotator-card-item {
+        width: 320px;
+        left: -140px;
+        /* 수평 정중앙 배치 밸런스 */
+        top: -105px;
+        /* 수직 정중앙 배치 밸런스 */
+        transform-origin: 1000px 50% !important;
+        /* GSAP 회전 궤적 인라인 제어를 위해 유지 */
+        margin-bottom: 0;
+        overflow: hidden;
     }
 
-    .works-section .rotator-card-item img {
-        display: block !important;
-        width: 100% !important;
-        height: 100% !important;
-        object-fit: cover !important;
-    }
-}
-
-
-
-/* 모바일 반응형 처리 */
-@media (max-width: 768px) {
-    .video-content-wrapper {
-        flex-direction: column;
-    }
-    .video-container {
-        margin-right: 0 !important;
-        margin-bottom: 20px;
-    }
-    .image-container {
-        flex: 0 0 100% !important;
+    #artwork .rotator-card-item img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
 }
 
@@ -2551,8 +2572,10 @@ Resume Timeline
     max-width: 22%;
     display: flex;
     justify-content: center;
-    align-items: flex-end; /* 캐릭터 이미지 자체를 하단 정렬 */
-    align-self: flex-end;  /* 부모 비디오 슬라이드 전체 영역에서 바닥(Bottom)에 붙도록 지정 */
+    align-items: flex-end;
+    /* 캐릭터 이미지 자체를 하단 정렬 */
+    align-self: flex-end;
+    /* 부모 비디오 슬라이드 전체 영역에서 바닥(Bottom)에 붙도록 지정 */
 }
 
 .video-left-char img {
@@ -2671,11 +2694,14 @@ Resume Timeline
     box-shadow: 0 5px 15px rgba(0, 129, 54, 0.3);
 }
 
+
+
 /* Responsive Media Queries */
 @media (max-width: 991px) {
     .video-right-desc h3 {
         font-size: 18px;
     }
+
     .video-right-desc p {
         font-size: 13px;
     }
@@ -2684,10 +2710,9 @@ Resume Timeline
 @media (max-width: 767px) {
     .video-content-layout {
         flex-direction: column;
-        gap: 20px;
         text-align: center;
     }
-    
+
     .video-left-char,
     .video-center-player,
     .video-right-desc {
@@ -2695,30 +2720,83 @@ Resume Timeline
         max-width: 100%;
         width: 100%;
     }
-    
+
     .video-left-char img {
         display: none;
     }
-    
-    /* 모바일 반응형 최적화 시에도 세로형이 너무 크지 않도록 너비 제어 */
+
     .video-center-player {
         max-width: 400px;
-        margin: 0 auto;
+        display: flex;
+        justify-content: center;
     }
-    
+
     .video-right-desc {
-        max-width: 60%;
+        max-width: 80%;
         padding-left: 0;
         text-align: center;
         opacity: 1 !important;
         transform: none !important;
     }
-    
+
     .video-right-desc h3 {
         margin-bottom: 8px;
     }
-    .video-swiper-controls{
+
+    .video-swiper-controls {
         justify-content: center;
         margin-top: 30px;
+    }
+}
+
+/* =============================================================
+   📱 Video 섹션 끊김 방지 및 모바일 재생 버튼 페이드 효과 최적화
+   ============================================================= */
+
+/* [PC/모바일 공통] 포인터 이벤트 튕김으로 인한 영상 끊김 완벽 차단 */
+.hover-video {
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+@media (max-width: 767px) {
+    /* 모바일 비디오 카드 상대 위치 고정 */
+    .portfolio-bg, .portfolio {
+        position: relative;
+    }
+
+    /* 모바일 재생 버튼 단정하게 정중앙 배치 */
+    .mobile-play-btn {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(1);
+        width: 60px;
+        height: 60px;
+        background: rgba(0, 129, 54, 0.9); /* 시그니처 딥그린 */
+        color: #ffffff;
+        border-radius: 50%;
+        font-size: 20px;
+        z-index: 10;
+        pointer-events: none; /* 터치 이벤트가 하단 링크 영역에 직접 전달되도록 처리 */
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        opacity: 1;
+        visibility: visible;
+        transition: opacity 0.35s ease, transform 0.35s ease, visibility 0.35s ease;
+    }
+
+    /* 재생 삼각형 아이콘 위치 정렬 */
+    .mobile-play-btn i {
+        margin-left: 4px;
+    }
+
+    /* 영상이 재생 중일 때(.is-playing) 버튼을 자연스럽게 페이드아웃 및 은닉 */
+    .portfolio.is-playing .mobile-play-btn {
+        opacity: 0;
+        visibility: hidden;
+        transform: translate(-50%, -50%) scale(0.8);
     }
 }
