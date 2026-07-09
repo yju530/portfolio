@@ -5,36 +5,33 @@ Author URL: trendytheme.net
 */
 
 /*
-    = Preloader
+    = Preloader (WELCOME / PORTFOLIO / SEO YOUNGJU)
     = Animated scrolling / Scroll Up
     = Full Screen Slider
-    = Sticky Menu
+    = Sticky Menu & Navigation spy
     = Back To Top
     = Countup
     = Progress Bar
-    = More skill
-    = Shuffle
+    = More skill & easyPieChart
+    = Shuffle (Portfolio filter Grid)
     = Magnific Popup
-    = Vidio auto play
-    = Fit Vids
-    = Google Map
-
+    = Stellar Parallax & WOW.js
+    = Section 2: GSAP Mouse trail & About Text Reveal / Underline
+    = Section 3: Falling Hashtag Animation
+    = Section 5: SNS Swiper & Camera character
+    = Section 6: Artwork GSAP 3D Wheel Rotator
+    = Section 7: Video Swiper, PC hover & Mobile play/pause logic (Center Align + Swiper autoplay protection)
+    = Section 8: Resume Timeline trigger
+    = Section 12: Scroll-Up character bubble trigger
 */
 
 jQuery(function ($) {
 
     'use strict';
 
-    /* ---------------------------------------------- /*
-     * Preloader
-    /* ---------------------------------------------- 
-
-    $(window).ready(function() {
-        $('#pre-status').fadeOut();
-        $('#tt-preloader').delay(350).fadeOut('slow');
-    });*/
-
-
+    /* ==========================================================================
+       0. Core Init & Preloader Loading Screen
+       ========================================================================== */
     $(window).on('load', function () {
         const tl = gsap.timeline();
 
@@ -56,7 +53,6 @@ jQuery(function ($) {
     // -------------------------------------------------------------
     // Animated scrolling / Scroll Up
     // -------------------------------------------------------------
-
     (function () {
         $('a[href*=#]').bind("click", function (e) {
             var anchor = $(this);
@@ -67,54 +63,22 @@ jQuery(function ($) {
         });
     }());
 
-    $(document).ready(function () {
-        const $scrollUp = $(".scroll-up");
-        const $bubble = $(".top-bubble");
 
-        if ($scrollUp.length > 0 && typeof gsap !== "undefined") {
-
-            // 마우스가 버튼 영역에 들어왔을 때 (Hover In)
-            $scrollUp.on("mouseenter", function () {
-                gsap.to($bubble, {
-                    opacity: 1,
-                    y: -10, // 아래에서 위로 슬라이딩하며 나타나는 효과
-                    duration: 0.4,
-                    ease: "power2.out",
-                    overwrite: "auto" // 모션 충돌 방지
-                });
-            });
-
-            // 마우스가 버튼 영역을 벗어났을 때 (Hover Out)
-            $scrollUp.on("mouseleave", function () {
-                gsap.to($bubble, {
-                    opacity: 0,
-                    y: 0, // 원래 위치로 리셋하며 사라짐
-                    duration: 0.3,
-                    ease: "power2.in"
-                });
-            });
-        }
-    });
-
-
-
-    // -------------------------------------------------------------
-    // Full Screen Slider
-    // -------------------------------------------------------------
+    /* ==========================================================================
+       1. Home Section (#home)
+       ========================================================================== */
     (function () {
         $(".tt-fullHeight").height($(window).height());
 
         $(window).resize(function () {
             $(".tt-fullHeight").height($(window).height());
         });
-
     }());
 
 
-    // -------------------------------------------------------------
-    // Sticky Menu
-    // -------------------------------------------------------------
-
+    /* ==========================================================================
+       2. Navigation Section (.header)
+       ========================================================================== */
     (function () {
         $('.header').sticky({
             topSpacing: 0
@@ -123,24 +87,19 @@ jQuery(function ($) {
         $('body').scrollspy({
             target: '.navbar-custom',
             offset: 70
-        })
+        });
     }());
+
     $(window).scroll(function () {
-        // About 섹션의 위치 가져오기
         var aboutTop = $('#about').offset().top;
         var scroll = $(window).scrollTop();
 
-        // 스크롤이 About 섹션 상단에 도달하면 클래스 추가
         if (scroll >= aboutTop) {
             $(".header").addClass("sticky-nav");
         } else {
             $(".header").removeClass("sticky-nav");
         }
     });
-
-    // -------------------------------------------------------------
-    // Back To Top
-    // -------------------------------------------------------------
 
     (function () {
         $(window).scroll(function () {
@@ -153,9 +112,452 @@ jQuery(function ($) {
     }());
 
 
-    // -------------------------------------------------------------
-    // Countup
-    // -------------------------------------------------------------
+    /* ==========================================================================
+       3. About Me Section (#about) & GSAP Core Registrations
+       ========================================================================== */
+    if (typeof gsap !== "undefined") {
+        gsap.registerPlugin(ScrollTrigger, Flip);
+    }
+
+    // A. 마우스 물결 트랙킹 효과
+    $(document).ready(function () {
+        const $waveBg = $(".mouse-wave-bg");
+
+        if ($waveBg.length > 0 && typeof gsap !== "undefined") {
+            gsap.set($waveBg, { xPercent: -50, yPercent: -50, scale: 4 });
+
+            const xTo = gsap.quickTo($waveBg, "x", { duration: 0.6, ease: "power3.out" });
+            const yTo = gsap.quickTo($waveBg, "y", { duration: 0.6, ease: "power3.out" });
+
+            $(document).on("mousemove", function (e) {
+                xTo(e.clientX);
+                yTo(e.clientY);
+            });
+        }
+    });
+
+    // B. 글자별 스며드는 등장 효과 (.reveal-text)
+    $(document).ready(function () {
+        const $target = $('.reveal-text');
+        if ($target.length > 0 && typeof gsap !== "undefined") {
+            const textContent = $target.html().trim();
+
+            let splitHTML = "";
+            textContent.split(/<br\s*\/?>/i).forEach((line, index) => {
+                if (index > 0) splitHTML += "<br>";
+                splitHTML += line.split("").map(char => {
+                    if (char === " ") return "&nbsp;";
+                    return `<span class="char">${char}</span>`;
+                }).join("");
+            });
+            $target.html(splitHTML);
+
+            gsap.from(".reveal-text .char", {
+                scrollTrigger: {
+                    trigger: ".reveal-text",
+                    start: "top 85%",
+                    toggleActions: "play none none none"
+                },
+                opacity: 0,
+                y: 30,
+                rotateX: -60,
+                duration: 0.8,
+                ease: "power3.out",
+                stagger: 0.04
+            });
+        }
+    });
+
+    // C. 형광펜 하이라이터 드로잉 (2초 딜레이 추가)
+    $(document).ready(function () {
+        if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
+            if ($(".animated-bg-bar").length > 0) {
+                gsap.to(".animated-bg-bar", {
+                    scrollTrigger: {
+                        trigger: ".hl-trigger-container",
+                        start: "top 85%",
+                        toggleActions: "play none none none"
+                    },
+                    scaleX: 1,
+                    duration: 0.8,
+                    delay: 2,
+                    ease: "power2.out"
+                });
+            }
+        }
+    });
+
+    // D. 해시태그 무작위 공중 낙하 탄성 애니메이션
+    $(document).ready(function () {
+        if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
+            const $headline = $(".hashtag-headline");
+
+            if ($headline.length > 0) {
+                gsap.set($headline, { opacity: 1 });
+                const $tagWords = $headline.find(".tag-word");
+
+                gsap.from($tagWords, {
+                    scrollTrigger: {
+                        trigger: ".hashtag-split-zone",
+                        start: "top 85%",
+                        toggleActions: "play none none none"
+                    },
+                    y: -100,
+                    opacity: 0,
+                    rotation: "random(-80, 80)",
+                    stagger: 0.1,
+                    duration: 1,
+                    ease: "back.out(1.7)"
+                });
+            }
+        }
+    });
+
+
+    /* ==========================================================================
+       4. Portfolio Section (#portfolio)
+       ========================================================================== */
+    (function () {
+        var $grid = $('#grid');
+        if ($grid.length > 0) {
+            $grid.shuffle({
+                itemSelector: '.portfolio-item'
+            });
+
+            $('#filter a').click(function (e) {
+                e.preventDefault();
+                $('#filter a').removeClass('active');
+                $(this).addClass('active');
+                var groupName = $(this).attr('data-group');
+                $grid.shuffle('shuffle', groupName);
+            });
+        }
+    }());
+
+    (function () {
+        $('.image-link').magnificPopup({
+            gallery: {
+                enabled: true
+            },
+            removalDelay: 300,
+            mainClass: 'mfp-with-zoom',
+            type: 'image'
+        });
+    }());
+
+    (function () {
+        $('.popup-video').magnificPopup({
+            disableOn: 700,
+            type: 'iframe',
+            mainClass: 'mfp-with-zoom',
+            removalDelay: 300,
+            preloader: false,
+            fixedContentPos: false
+        });
+    }());
+
+
+    /* ==========================================================================
+       5. SNS-design Section (#sns-design)
+       ========================================================================== */
+    $(document).ready(function () {
+        if ($('.snsSwiper').length > 0) {
+            const snsSwiper = new Swiper('.snsSwiper', {
+                slidesPerView: 'auto',
+                spaceBetween: 30,
+                loop: false,
+                grabCursor: true,
+                freeMode: true,
+                autoplay: {
+                    delay: 4000,
+                    disableOnInteraction: true,
+                }
+            });
+        }
+    });
+
+    $(document).ready(function () {
+        if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
+            gsap.to(".camera-char", {
+                scrollTrigger: {
+                    trigger: "#sns-design",
+                    start: "top 30%",
+                    toggleActions: "play none none reverse"
+                },
+                opacity: 1,
+                y: 0,
+                duration: 0.7,
+                ease: "back.out(2)"
+            });
+        }
+    });
+
+
+    /* ==========================================================================
+       6. Artwork Section (#artwork) - GSAP 3D Wheel Rotator
+       ========================================================================== */
+    $(document).ready(function () {
+        if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
+            const $rotatorCards = $(".rotator-card-item");
+            let lastIndex = -1;
+
+            if ($rotatorCards.length > 0) {
+                let clamp = gsap.utils.clamp(-4, 4);
+
+                $rotatorCards.each(function (index, card) {
+                    gsap.set(card, {
+                        rotation: index * -65,
+                        x: -1000
+                    });
+                });
+
+                const rotationTimeline = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: "#artwork",
+                        start: "top top",
+                        end: "+=4000",
+                        scrub: 1,
+                        pin: true,
+                        onUpdate: (self) => {
+                            let velocity = self.getVelocity();
+                            let skewAmount = clamp(velocity / -1200);
+
+                            gsap.to($rotatorCards, {
+                                skewY: skewAmount,
+                                duration: 0.3,
+                                ease: "power1.out",
+                                overwrite: "auto"
+                            });
+
+                            let progress = self.progress;
+                            let currentIndex = Math.round(progress * ($rotatorCards.length - 1));
+
+                            if (currentIndex !== lastIndex && currentIndex >= 0 && currentIndex < $rotatorCards.length) {
+                                lastIndex = currentIndex;
+
+                                const $activeCard = $rotatorCards.eq(currentIndex);
+                                const newTitle = $activeCard.data("title");
+                                const newDesc = $activeCard.data("desc");
+
+                                gsap.to(".artwork-text-switcher", {
+                                    opacity: 0,
+                                    x: -10,
+                                    duration: 0.2,
+                                    onComplete: () => {
+                                        $("#art-title").text(newTitle);
+                                        $("#art-desc").html(`<p>${newDesc}</p>`);
+                                        gsap.to(".artwork-text-switcher", {
+                                            opacity: 1,
+                                            x: 0,
+                                            duration: 0.3,
+                                            ease: "power2.out"
+                                        });
+                                    }
+                                });
+                            }
+
+                            $rotatorCards.each(function (index, card) {
+                                if (index === currentIndex) {
+                                    gsap.to(card, { opacity: 1, duration: 0.3, overwrite: "auto" });
+                                } else {
+                                    gsap.to(card, { opacity: 0.15, duration: 0.3, overwrite: "auto" });
+                                }
+                            });
+                        }
+                    }
+                });
+
+                rotationTimeline.to($rotatorCards, {
+                    rotation: "+=" + (($rotatorCards.length - 1) * 65),
+                    ease: "none"
+                });
+            }
+        }
+    });
+
+
+    /* ==========================================================================
+       7. Video Section (#video-section) - Swiper & PC Hover & Mobile Toggle Controls
+       ========================================================================== */
+    $(document).ready(function () {
+        // A. Video Swiper 인스턴스 기동 (페이드 연동)
+        if ($('.videoSwiper').length > 0) {
+            const videoSwiper = new Swiper('.videoSwiper', {
+                slidesPerView: 1,
+                spaceBetween: 30,
+                loop: true,
+                autoplay: {
+                    delay: 6000,
+                    disableOnInteraction: false,
+                    pauseOnMouseEnter: true
+                },
+                navigation: {
+                    nextEl: '.video-swiper-next',
+                    prevEl: '.video-swiper-prev',
+                },
+                effect: 'fade',
+                fadeEffect: {
+                    crossFade: true
+                }
+            });
+        }
+
+        // B. [PC 호버 & 모바일 클릭 재생 + Swiper 자동재생 멈춤 통합 로직]
+        const isMobile = () => window.matchMedia("(max-width: 767px)").matches;
+
+        // Portfolio 섹션의 .post-thumbnail과 Video 섹션의 .portfolio를 정밀 스캔합니다.
+        $('.post-thumbnail, .portfolio').each(function () {
+            const $container = $(this);
+            const $video = $container.find('.hover-video');
+            const $link = $container.find('a.image-link');
+
+            if ($video.length === 0) return;
+
+            // 모바일 환경을 위한 미학적 재생 버튼 동적 확보
+            if ($container.find('.mobile-play-btn').length === 0) {
+                $container.append('<div class="mobile-play-btn"><i class="fa fa-play"></i></div>');
+            }
+
+            /* --- 데스크톱 호버 제어 --- */
+            $container.on('mouseenter', function () {
+                if (isMobile()) return;
+
+                $video.show().css('opacity', '1');
+                const videoEl = $video[0];
+                if (videoEl) {
+                    videoEl.muted = true;
+                    videoEl.play().catch(function (err) {
+                        console.log("Desktop video autoplay check:", err);
+                    });
+                }
+
+                // 우측 영상 가이드 슬라이딩 등장 연동
+                const $desc = $container.closest('.video-content-layout').find('.video-right-desc');
+                if ($desc.length > 0 && typeof gsap !== "undefined" && window.innerWidth >= 768) {
+                    gsap.fromTo($desc,
+                        { opacity: 0, x: -50 },
+                        { opacity: 1, x: 0, duration: 0.6, ease: "power2.out", overwrite: "auto" }
+                    );
+                }
+            }).on('mouseleave', function () {
+                if (isMobile()) return;
+
+                const videoEl = $video[0];
+                if (videoEl) {
+                    videoEl.pause();
+                    videoEl.currentTime = 0;
+                }
+                $video.hide().css('opacity', '0');
+
+                // 우측 영상 가이드 퇴장
+                const $desc = $container.closest('.video-content-layout').find('.video-right-desc');
+                if ($desc.length > 0 && typeof gsap !== "undefined" && window.innerWidth >= 768) {
+                    gsap.to($desc, {
+                        opacity: 0,
+                        x: -50,
+                        duration: 0.4,
+                        ease: "power2.in",
+                        overwrite: "auto"
+                    });
+                }
+            });
+
+            /* --- 모바일 터치 기반 페이드 토글 제어 --- */
+            // 링크 태그가 존재하면 링크를 타겟팅하고, 없다면 컨테이너 요소를 직접 타겟팅해 오작동을 차단합니다.
+            const $clickTarget = $link.length ? $link : $container;
+
+            $clickTarget.on('click', function (e) {
+                if (!isMobile()) return;
+
+                // 모바일 MagnificPopup 링크 실행 및 강제 페이지 점프 방어
+                e.preventDefault();
+                e.stopPropagation();
+
+                const videoEl = $video[0];
+                if (!videoEl) return;
+
+                const $swiperContainer = $container.closest('.swiper');
+                const swiperInstance = $swiperContainer.length ? $swiperContainer[0].swiper : null;
+
+                if (videoEl.paused) {
+                    // 1. 싱글 플레이어: 다른 모든 영상 강제 중지 및 리셋
+                    $('.hover-video').each(function () {
+                        if (this !== videoEl) {
+                            this.pause();
+                            this.currentTime = 0;
+                            $(this).hide().css('opacity', '0');
+                            $(this).closest('.post-thumbnail, .portfolio').removeClass('is-playing');
+                        }
+                    });
+
+                    // 2. 비디오 활성화 및 구동
+                    $video.show().css('opacity', '1');
+                    videoEl.play().then(function () {
+                        // 성공적으로 재생이 완료되면 클래스를 부여하여 재생 기호를 부드럽게 숨깁니다 (CSS 연동)
+                        $container.addClass('is-playing');
+
+                        // 재생되는 도중 Swiper가 넘어가버리지 않도록 Autoplay를 임시 고정합니다.
+                        if (swiperInstance && swiperInstance.autoplay) {
+                            swiperInstance.autoplay.stop();
+                        }
+                    }).catch(function (err) {
+                        console.warn("Autoplay block active on mobile:", err);
+                    });
+
+                } else {
+                    // 3. 재클릭 시 정지 및 버튼 복구
+                    videoEl.pause();
+                    $video.hide().css('opacity', '0');
+                    $container.removeClass('is-playing'); // 클래스 해제로 버튼 재생 기호 부드럽게 복구
+
+                    // Autoplay를 원위치하여 슬라이드가 순차 흐름을 갖게 합니다.
+                    if (swiperInstance && swiperInstance.autoplay) {
+                        swiperInstance.autoplay.start();
+                    }
+                }
+            });
+        });
+
+        // 4. 스와이프 제스처 드래그 조작으로 슬라이드가 변조되었을 때 재생 상태 정리
+        $('.swiper').each(function () {
+            if (this.swiper) {
+                this.swiper.on('slideChange', function () {
+                    $('.hover-video').each(function () {
+                        this.pause();
+                        this.currentTime = 0;
+                        $(this).hide().css('opacity', '0');
+                        $(this).closest('.post-thumbnail, .portfolio').removeClass('is-playing');
+                    });
+                });
+            }
+        });
+    });
+
+
+    /* ==========================================================================
+       8. Resume Section (#resume)
+       ========================================================================== */
+    $(document).ready(function () {
+        if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
+            gsap.to(".resume-item", {
+                scrollTrigger: {
+                    trigger: ".resume-section",
+                    start: "top 80%",
+                    toggleActions: "play none none reverse"
+                },
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                stagger: 0.2,
+                ease: "power2.out"
+            });
+        }
+    });
+
+
+    /* ==========================================================================
+       9. Skills Section (#skills) & Inview Triggers
+       ========================================================================== */
     $('.count-wrap').bind('inview', function (event, visible, visiblePartX, visiblePartY) {
         if (visible) {
             $(this).find('.timer').each(function () {
@@ -172,11 +574,6 @@ jQuery(function ($) {
         }
     });
 
-
-    // -------------------------------------------------------------
-    // Progress Bar
-    // -------------------------------------------------------------
-
     $('.skill-progress').bind('inview', function (event, visible, visiblePartX, visiblePartY) {
         if (visible) {
             $.each($('div.progress-bar'), function () {
@@ -186,13 +583,9 @@ jQuery(function ($) {
         }
     });
 
-    // -------------------------------------------------------------
-    // More skill
-    // -------------------------------------------------------------
     $('.more-skill').bind('inview', function (event, visible, visiblePartX, visiblePartY) {
         if (visible) {
             $('.chart').easyPieChart({
-                //your configuration goes here
                 easing: 'easeOut',
                 delay: 3000,
                 barColor: '#333',
@@ -204,602 +597,64 @@ jQuery(function ($) {
                 onStep: function (from, to, percent) {
                     this.el.children[0].innerHTML = Math.round(percent);
                 }
-
             });
             $(this).unbind('inview');
         }
     });
 
 
-    // -------------------------------------------------------------
-    // Shuffle
-    // -------------------------------------------------------------
-
-    (function () {
-
-        var $grid = $('#grid');
-
-        $grid.shuffle({
-            itemSelector: '.portfolio-item'
-        });
-
-        /* reshuffle when user clicks a filter item */
-        $('#filter a').click(function (e) {
-            e.preventDefault();
-
-            // set active class
-            $('#filter a').removeClass('active');
-            $(this).addClass('active');
-
-            // get group name from clicked item
-            var groupName = $(this).attr('data-group');
-
-            // reshuffle grid
-            $grid.shuffle('shuffle', groupName);
-        });
-
-
-    }());
-
-
-    // -------------------------------------------------------------
-    // Magnific Popup
-    // -------------------------------------------------------------
-
-    (function () {
-        $('.image-link').magnificPopup({
-
-            gallery: {
-                enabled: true
-            },
-            removalDelay: 300, // Delay in milliseconds before popup is removed
-            mainClass: 'mfp-with-zoom', // this class is for CSS animation below
-            type: 'image'
-        });
-
-    }());
-
-
-
-    (function () {
-        $('.popup-video').magnificPopup({
-            disableOn: 700,
-            type: 'iframe',
-            mainClass: 'mfp-with-zoom',
-            removalDelay: 300,
-            preloader: false,
-            fixedContentPos: false
-        });
-    }());
-
-
-
-
-
-    // -------------------------------------------------------------
-    // Fit Vids
-    // -------------------------------------------------------------
+    /* ==========================================================================
+       10. Interview Section (#interview) & Stellar, WOW Init
+       ========================================================================== */
     (function () {
         $(".video-container").fitVids();
     }());
 
-
-
-    // -------------------------------------------------------------
-    // Vidio auto play
-    // -------------------------------------------------------------
-    /* (function () {
-     
-      Vimeo API: http://developer.vimeo.com/player/js-api
-     
-         var iframe = document.getElementById('nofocusvideo');
-         // $f == Froogaloop
-         var player = $f(iframe);
- 
-         $('.modal').on('hidden.bs.modal', function () {
-         player.api('pause');
-         })
- 
-         $('.modal').on('shown.bs.modal', function () {
-         player.api('play');
-         })
-     }());
-  */
-
-
-    // -------------------------------------------------------------
-    // STELLAR FOR BACKGROUND SCROLLING
-    // -------------------------------------------------------------
-
     $(window).load(function () {
-
         if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-
+            // Mobile exception
         } else {
             $.stellar({
                 horizontalScrolling: false,
                 responsive: true
             });
         }
-
     });
-
-
-    // -------------------------------------------------------------
-    // WOW JS
-    // -------------------------------------------------------------
 
     (function () {
-
         new WOW({
-
             mobile: false
-
         }).init();
-
     }());
 
-});
 
+    /* ==========================================================================
+       12. Scroll-Up Section (.scroll-up) & Character Balloon Animations
+       ========================================================================== */
+    $(document).ready(function () {
+        const $scrollUp = $(".scroll-up");
+        const $bubble = $(".top-bubble");
 
-$(document).ready(function () {
-    // Portfolio의 post-thumbnail과 Video 영역의 portfolio 클래스를 모두 타겟팅합니다.
-    // 단, 스와이퍼 비디오 카드(.video-slide)는 전용 스크립트로 동작하므로 제외합니다.
-    $('.post-thumbnail, .portfolio:not(.video-slide .portfolio)').on('mouseenter', function () {
-        // 내부에 있는 비디오 태그를 탐색합니다.
-        const $video = $(this).find('.hover-video');
-
-        if ($video.length > 0) {
-            $video.show(); // 비디오 노출
-            $video[0].play(); // 제이쿼리 객체에서 네이티브 DOM을 꺼내어 재생 처리
-        }
-    }).on('mouseleave', function () {
-        const $video = $(this).find('.hover-video');
-
-        if ($video.length > 0) {
-            $video[0].pause(); // 일시정지
-            $video[0].currentTime = 0; // 재생 위치 초기화
-            $video.hide(); // 비디오 숨김 (다시 이미지가 보이도록 처리)
-        }
-    });
-});
-
-
-// swiper
-$(document).ready(function () {
-    // 1. Swiper 초기화
-    const snsSwiper = new Swiper('.snsSwiper', {
-        slidesPerView: 3,
-        spaceBetween: 20,
-        loop: true
-    });
-
-    // 2. Magnific Popup 기능 유지 (Swiper 사용 시 필수)
-    $('.image-link').magnificPopup({
-        gallery: { enabled: true },
-        removalDelay: 300,
-        mainClass: 'mfp-with-zoom',
-        type: 'image'
-    });
-});
-
-$(document).ready(function () {
-    const snsSwiper = new Swiper('.snsSwiper', {
-        slidesPerView: 'auto', // CSS에 정의된 width를 따름
-        spaceBetween: 30,
-        loop: false, // 마지막 카드에서 멈추도록 설정 (연속성 강조)
-        grabCursor: true, // 마우스 커서를 잡는 모양으로 변경
-        freeMode: true, // 버튼 없이 자유롭게 밀어서 탐색 가능
-        autoplay: {
-            delay: 4000,
-            disableOnInteraction: true, // 사용자가 건드리면 자동재생 정지
-        }
-    });
-});
-
-// ===== GSAP 플러그인 초기 등록 구역 =====
-// 스크립트 최상단이나 공통 플러그인 등록 위치에 안전하게 선언합니다.
-if (typeof gsap !== "undefined") {
-    gsap.registerPlugin(ScrollTrigger, Flip);
-}
-
-// 1. 마우스 물결 백그라운드 트레일 효과
-$(document).ready(function () {
-    const $waveBg = $(".mouse-wave-bg");
-
-    if ($waveBg.length > 0 && typeof gsap !== "undefined") {
-        gsap.set($waveBg, { xPercent: -50, yPercent: -50, scale: 4 });
-
-        const xTo = gsap.quickTo($waveBg, "x", { duration: 0.6, ease: "power3.out" });
-        const yTo = gsap.quickTo($waveBg, "y", { duration: 0.6, ease: "power3.out" });
-
-        $(document).on("mousemove", function (e) {
-            xTo(e.clientX);
-            yTo(e.clientY);
-        });
-    }
-});
-
-// 2. About Me 타이틀 글자별 스며드는 등장 효과
-$(document).ready(function () {
-    const $target = $('.reveal-text');
-    if ($target.length > 0 && typeof gsap !== "undefined") {
-        const textContent = $target.html().trim();
-
-        let splitHTML = "";
-        textContent.split(/<br\s*\/?>/i).forEach((line, index) => {
-            if (index > 0) splitHTML += "<br>";
-            splitHTML += line.split("").map(char => {
-                // 공백 문자일 경우 단순 공백 텍스트 노드가 밀리지 않도록 고정 공백(&nbsp;) 처리로 보완
-                if (char === " ") return "&nbsp;";
-                return `<span class="char">${char}</span>`;
-            }).join("");
-        });
-        $target.html(splitHTML);
-
-        gsap.from(".reveal-text .char", {
-            scrollTrigger: {
-                trigger: ".reveal-text",
-                start: "top 85%",
-                toggleActions: "play none none none"
-            },
-            opacity: 0,
-            y: 30,
-            rotateX: -60,
-            duration: 0.8,
-            ease: "power3.out",
-            stagger: 0.04
-        });
-    }
-});
-
-$(document).ready(function () {
-    // GSAP Core 및 ScrollTrigger 플러그인이 정상 작동하는 환경인지 확인
-    if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
-
-        // [과제 2 수정] 형광펜 밑줄 애니메이션 (진입 후 2초 딜레이 추가)
-        if ($(".animated-bg-bar").length > 0) {
-            gsap.to(".animated-bg-bar", {
-                scrollTrigger: {
-                    trigger: ".hl-trigger-container",
-                    start: "top 85%", // 화면에 글자가 안정적으로 들어오는 시점 감지
-                    toggleActions: "play none none none" // 한 번만 깔끔하게 실행되도록 제어
-                },
-                scaleX: 1, // 가로 폭을 100%로 확장
-                duration: 0.8, // 선이 슥 그어지는 시간 (0.8초)
-                delay: 2, // ⭐ 핵심: 스크롤 감지 후 완전히 2초 대기한 다음 모션 시작
-                ease: "power2.out"
-            });
-        }
-
-        // [과제 3 해결] 레퍼런스 리소스를 커스텀 이식한 해시태그 떨어지기 애니메이션
-        const $headline = $(".hashtag-headline");
-
-        if ($headline.length > 0) {
-            // 폰트 및 구조 준비가 완료되면 요소를 시각화 (레퍼런스의 fonts.ready 기능 보완)
-            gsap.set($headline, { opacity: 1 });
-
-            // 레퍼런스의 SplitText.create 문법을 대체하여 내부 자식 단어들을 타겟팅합니다.
-            const $tagWords = $headline.find(".tag-word");
-
-            // 레퍼런스에 포함된 gsap.from 애니메이션 속성을 100% 매칭하여 구현
-            gsap.from($tagWords, {
-                scrollTrigger: {
-                    trigger: ".hashtag-split-zone",
-                    start: "top 85%",
-                    toggleActions: "play none none none"
-                },
-                y: -100, // 위에서 아래로 떨어지는 궤적 (레퍼런스 준수)
-                opacity: 0, // 투명도 교차
-                rotation: "random(-80, 80)", // 레퍼런스의 무작위 회전값 이식
-                stagger: 0.1, // 단어별 순차적 딜레이 간격 (레퍼런스 준수)
-                duration: 1, // 재생 시간 1초 (레퍼런스 준수)
-                ease: "back.out(1.7)" // 통통 튀는 탄성 효과 구현 (레퍼런스 백이즈 준수)
-            });
-        }
-    }
-});
-
-// artwork
-$(document).ready(function () {
-    if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
-
-        const $rotatorCards = $(".rotator-card-item");
-        let lastIndex = -1; // 현재 활성화된 인덱스를 저장할 변수
-
-        if ($rotatorCards.length > 0) {
-            // GSAP 효과가 너무 크지 않도록 최댓값을 엄격하게 제한 (-4도 ~ 4도)
-            let clamp = gsap.utils.clamp(-4, 4);
-
-            // 1. 초기 세팅: 카드 간 각도차를 65도로 크게 벌려 서로 절대 겹치지 않게 합니다.
-            $rotatorCards.each(function (index, card) {
-                gsap.set(card, {
-                    rotation: index * -65, // 간격을 대폭 넓힘
-                    x: -1000 // transform-origin 위치에 매칭
+        if ($scrollUp.length > 0 && typeof gsap !== "undefined") {
+            $scrollUp.on("mouseenter", function () {
+                gsap.to($bubble, {
+                    opacity: 1,
+                    y: -10,
+                    duration: 0.4,
+                    ease: "power2.out",
+                    overwrite: "auto"
                 });
             });
 
-            // 2. 메인 회전 및 스크롤 고정 타임라인
-            const rotationTimeline = gsap.timeline({
-                scrollTrigger: {
-                    trigger: "#artwork",
-                    start: "top top",
-                    end: "+=4000", // 한 작품씩 천천히 감상하도록 깊이 확보
-                    scrub: 1,
-                    pin: true,
-                    onUpdate: (self) => {
-                        // [왜곡 제어] 속도 수치를 대폭 낮추어 미세하고 정갈하게만 비틀어지도록 수정
-                        let velocity = self.getVelocity();
-                        let skewAmount = clamp(velocity / -1200);
-
-                        gsap.to($rotatorCards, {
-                            skewY: skewAmount,
-                            duration: 0.3,
-                            ease: "power1.out",
-                            overwrite: "auto"
-                        });
-
-                        // [중앙 카드 탐색 및 오퍼시티/텍스트 제어]
-                        // 스크롤 진행도(0 ~ 1)를 바탕으로 현재 정중앙에 올 카드의 인덱스를 매초 연산합니다.
-                        let progress = self.progress;
-                        let currentIndex = Math.round(progress * ($rotatorCards.length - 1));
-
-                        // 활성화 인덱스가 변경되었을 때만 좌측 텍스트를 자연스럽게 교체
-                        if (currentIndex !== lastIndex && currentIndex >= 0 && currentIndex < $rotatorCards.length) {
-                            lastIndex = currentIndex;
-
-                            const $activeCard = $rotatorCards.eq(currentIndex);
-                            const newTitle = $activeCard.data("title");
-                            const newDesc = $activeCard.data("desc");
-
-                            // 왼쪽 텍스트 페이드 전환 모션 인터랙션
-                            gsap.to(".artwork-text-switcher", {
-                                opacity: 0,
-                                x: -10,
-                                duration: 0.2,
-                                onComplete: () => {
-                                    $("#art-title").text(newTitle);
-                                    $("#art-desc").html(`<p>${newDesc}</p>`);
-                                    gsap.to(".artwork-text-switcher", {
-                                        opacity: 1,
-                                        x: 0,
-                                        duration: 0.3,
-                                        ease: "power2.out"
-                                    });
-                                }
-                            });
-                        }
-
-                        // [오퍼시티 제어] 현재 정중앙 카드만 선명하게(1), 지나갔거나 대기 중인 카드는 흐리게(0.15) 처리
-                        $rotatorCards.each(function (index, card) {
-                            if (index === currentIndex) {
-                                gsap.to(card, { opacity: 1, duration: 0.3, overwrite: "auto" });
-                            } else {
-                                gsap.to(card, { opacity: 0.15, duration: 0.3, overwrite: "auto" });
-                            }
-                        });
-                    }
-                }
-            });
-
-            // 3. 아래로 스크롤할 때 카드가 위로 올라가도록 순방향 회전 매칭
-            rotationTimeline.to($rotatorCards, {
-                rotation: "+=" + (($rotatorCards.length - 1) * 65), // 카드 개수만큼 총 회전각 정밀 연산
-                ease: "none"
-            });
-        }
-    }
-});
-
-// video (일반 비디오 리스트 호버 제어)
-$(document).ready(function () {
-    $('.portfolio:not(.video-slide .portfolio)').hover(
-        function () {
-            $(this).find('.hover-video').css('opacity', '1');
-            $(this).find('.hover-video')[0].play();
-        },
-        function () {
-            $(this).find('.hover-video').css('opacity', '0');
-            $(this).find('.hover-video')[0].pause();
-            $(this).find('.hover-video')[0].currentTime = 0;
-        }
-    );
-});
-
-
-// sns-design
-$(document).ready(function () {
-    if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
-
-        // 마지막 sns-item에 도달했을 때 캐릭터 등장
-        gsap.to(".camera-char", {
-            scrollTrigger: {
-                trigger: ".sns-section", // 섹션에 도달하면 시작
-                start: "top 30%",
-                toggleActions: "play none none reverse"
-            },
-            opacity: 1,
-            y: 0,
-            duration: 0.7,
-            ease: "back.out(2)" // 살짝 튀어 오르며 등장
-        });
-    }
-});
-
-// Resume 섹션 스크롤 애니메이션 (안정적인 기본 구현)
-$(document).ready(function () {
-    if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
-
-        // Resume 섹션 내부의 항목들을 순차적으로 보여줌
-        gsap.to(".resume-item", {
-            scrollTrigger: {
-                trigger: ".resume-section", // 해당 섹션이 기준
-                start: "top 80%",          // 화면 80% 지점에 도달할 때 시작
-                toggleActions: "play none none reverse"
-            },
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            stagger: 0.2, // 하나씩 순차적으로 등장
-            ease: "power2.out"
-        });
-    }
-});
-
-
-// ==========================================================================
-// 12. Video Swiper & Hover GSAP Animation (스와이퍼 연동 및 설명글 슬라이딩 등장)
-// ==========================================================================
-$(document).ready(function () {
-    // 1. Swiper 인스턴스 초기화
-    const videoSwiper = new Swiper('.videoSwiper', {
-        slidesPerView: 1,
-        spaceBetween: 30,
-        loop: true,
-        autoplay: {
-            delay: 6000,
-            disableOnInteraction: false,
-            pauseOnMouseEnter: true // 마우스 호버 시 일시적으로 자동 재생을 멈춤
-        },
-        navigation: {
-            nextEl: '.video-swiper-next',
-            prevEl: '.video-swiper-prev',
-        },
-        effect: 'fade', // 자연스러운 Fade 효과
-        fadeEffect: {
-            crossFade: true
-        }
-    });
-
-    // 2. 호버 시 비디오 플레이 및 오른쪽 설명문 좌 -> 우 모션 등장
-    $('.video-slide .portfolio').on('mouseenter', function () {
-        const $video = $(this).find('.hover-video');
-        const $desc = $(this).closest('.video-content-layout').find('.video-right-desc');
-
-        // 비디오 재생 처리
-        if ($video.length > 0) {
-            $video.show();
-            $video.css('opacity', '1');
-            $video[0].play();
-        }
-
-        // 데스크톱 해상도 이상에서만 우측 가이드문이 왼쪽에서 오른쪽으로 스르륵 밀려나오도록 GSAP 제어
-        if ($desc.length > 0 && typeof gsap !== "undefined" && window.innerWidth >= 768) {
-            gsap.fromTo($desc,
-                { opacity: 0, x: -50 },
-                { opacity: 1, x: 0, duration: 0.6, ease: "power2.out", overwrite: "auto" }
-            );
-        }
-    }).on('mouseleave', function () {
-        const $video = $(this).find('.hover-video');
-        const $desc = $(this).closest('.video-content-layout').find('.video-right-desc');
-
-        // 비디오 리셋
-        if ($video.length > 0) {
-            $video[0].pause();
-            $video[0].currentTime = 0;
-            $video.css('opacity', '0');
-            $video.hide();
-        }
-
-        // 설명글 서서히 복귀
-        if ($desc.length > 0 && typeof gsap !== "undefined" && window.innerWidth >= 768) {
-            gsap.to($desc, {
-                opacity: 0,
-                x: -50,
-                duration: 0.4,
-                ease: "power2.in",
-                overwrite: "auto"
+            $scrollUp.on("mouseleave", function () {
+                gsap.to($bubble, {
+                    opacity: 0,
+                    y: 0,
+                    duration: 0.3,
+                    ease: "power2.in"
+                });
             });
         }
     });
-});
 
-
-// ==========================================================================
-// 📱 Video 섹션 PC 호버 끊김 방지 + 모바일 클릭 재생 및 버튼 페이드 토글 제어
-// ==========================================================================
-$(document).ready(function () {
-    // 모바일 전용 해상도 분기점 판별 (767px 이하)
-    const isMobile = () => window.matchMedia("(max-width: 767px)").matches;
-
-    $('.portfolio-item .portfolio').each(function () {
-        const $container = $(this);
-        const $video = $container.find('.hover-video');
-        const $link = $container.find('a.image-link');
-
-        if ($video.length === 0) return;
-
-        // 모바일 환경일 때만 내부에 재생 아이콘 버튼이 없다면 동적 생성
-        if ($container.find('.mobile-play-btn').length === 0) {
-            $container.append('<div class="mobile-play-btn"><i class="fa fa-play"></i></div>');
-        }
-
-        /* ----------------------------------------------
-         * [PC 데스크톱 환경] 마우스 진입 시 자동 재생 / 이탈 시 리셋
-         * ---------------------------------------------- */
-        $container.on('mouseenter', function () {
-            if (isMobile()) return; // 모바일 뷰일 때는 호버 마우스 연산 전면 차단
-
-            $video.show().css('opacity', '1');
-            const videoEl = $video[0];
-            if (videoEl) {
-                videoEl.muted = true;
-                videoEl.play().catch(function (err) {
-                    console.log("Desktop autoplay check:", err);
-                });
-            }
-        }).on('mouseleave', function () {
-            if (isMobile()) return;
-
-            const videoEl = $video[0];
-            if (videoEl) {
-                videoEl.pause();
-                videoEl.currentTime = 0;
-            }
-            $video.hide().css('opacity', '0');
-        });
-
-        /* ----------------------------------------------
-         * [모바일 환경] 탭(클릭) 시 재생 버튼 숨김(페이드아웃) 및 재터치 시 멈춤(페이드인)
-         * ---------------------------------------------- */
-        $link.on('click', function (e) {
-            if (!isMobile()) return;
-
-            // 모바일 팝업(MagnificPopup) 무력화 및 강제 페이지 링크 이동 전면 방어
-            e.preventDefault();
-            e.stopPropagation();
-
-            const videoEl = $video[0];
-            if (!videoEl) return;
-
-            if (videoEl.paused) {
-                // 1. 싱글 플레이 구현: 다른 카드에서 돌고 있던 동영상들은 일제히 정지 및 리셋
-                $('.hover-video').each(function () {
-                    if (this !== videoEl) {
-                        this.pause();
-                        this.currentTime = 0;
-                        $(this).hide().css('opacity', '0');
-                        $(this).closest('.portfolio').removeClass('is-playing');
-                    }
-                });
-
-                // 2. 현재 타겟팅된 비디오 활성화 및 재생
-                $video.show().css('opacity', '1');
-                videoEl.play().then(function () {
-                    // 재생 성공 즉시 클래스를 주입하여 가운데 재생 버튼을 페이드아웃시킵니다.
-                    $container.addClass('is-playing');
-                }).catch(function (err) {
-                    console.warn("Mobile play block active:", err);
-                });
-
-            } else {
-                // 3. 이미 재생 중인 비디오를 다시 터치한 경우 -> 일시정지 및 원상 복구
-                videoEl.pause();
-                $video.hide().css('opacity', '0');
-                // 클래스를 회수하여 숨겨졌던 가운데 재생 버튼이 다시 자연스럽게 나타나도록 처리합니다.
-                $container.removeClass('is-playing');
-            }
-        });
-    });
 });
