@@ -1347,43 +1347,12 @@ video {
     .fa, [class^="fa-"], [class*=" fa-"] {
         font-family: FontAwesome !important;
     }
-
-    /* ⭐ [핵심 수정 5] 모바일 전용 재생 버튼 스타일 및 페이드 트랜지션 연동 */
-    .mobile-play-btn {
-        display: flex !important;
-        align-items: center;
-        justify-content: center;
-        position: absolute;
-        top: 50% !important;
-        left: 50% !important;
-        transform: translate(-50%, -50%) scale(1) !important;
-        width: 60px !important;
-        height: 60px !important;
-        background: rgba(0, 129, 54, 0.9) !important; /* 브랜드 딥그린 */
-        color: #ffffff !important;
-        border-radius: 50% !important;
-        font-size: 20px !important;
-        z-index: 10 !important;
-        pointer-events: none; /* 클릭 이벤트 통과 처리 */
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
-        opacity: 1 !important;
-        visibility: visible !important;
-        transition: opacity 0.35s ease, transform 0.35s ease, visibility 0.35s ease !important;
-    }
-
-    .mobile-play-btn i {
-        margin-left: 4px;
-    }
-
-    /* 재생 활성화(.is-playing) 시 자연스러운 소멸 모션 적용 */
-    .portfolio.is-playing .mobile-play-btn,
-    .post-thumbnail.is-playing .mobile-play-btn {
-        opacity: 0 !important;
-        visibility: hidden !important;
-        transform: translate(-50%, -50%) scale(0.8) !important;
-    }
+    
 }
-
+/* Video 섹션의 플레이어만 클릭 커서 표시 */
+.video-center-player .portfolio {
+    cursor: pointer !important;
+}
 
 /* ==========================================================================
    8. Resume Section (#resume)
