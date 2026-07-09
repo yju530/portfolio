@@ -714,3 +714,92 @@ $(document).ready(function () {
         }
     });
 });
+
+
+// ==========================================================================
+// 📱 Video 섹션 PC 호버 끊김 방지 + 모바일 클릭 재생 및 버튼 페이드 토글 제어
+// ==========================================================================
+$(document).ready(function () {
+    // 모바일 전용 해상도 분기점 판별 (767px 이하)
+    const isMobile = () => window.matchMedia("(max-width: 767px)").matches;
+
+    $('.portfolio-item .portfolio').each(function () {
+        const $container = $(this);
+        const $video = $container.find('.hover-video');
+        const $link = $container.find('a.image-link');
+
+        if ($video.length === 0) return;
+
+        // 모바일 환경일 때만 내부에 재생 아이콘 버튼이 없다면 동적 생성
+        if ($container.find('.mobile-play-btn').length === 0) {
+            $container.append('<div class="mobile-play-btn"><i class="fa fa-play"></i></div>');
+        }
+
+        /* ----------------------------------------------
+         * [PC 데스크톱 환경] 마우스 진입 시 자동 재생 / 이탈 시 리셋
+         * ---------------------------------------------- */
+        $container.on('mouseenter', function () {
+            if (isMobile()) return; // 모바일 뷰일 때는 호버 마우스 연산 전면 차단
+
+            $video.show().css('opacity', '1');
+            const videoEl = $video[0];
+            if (videoEl) {
+                videoEl.muted = true;
+                videoEl.play().catch(function (err) {
+                    console.log("Desktop autoplay check:", err);
+                });
+            }
+        }).on('mouseleave', function () {
+            if (isMobile()) return;
+
+            const videoEl = $video[0];
+            if (videoEl) {
+                videoEl.pause();
+                videoEl.currentTime = 0;
+            }
+            $video.hide().css('opacity', '0');
+        });
+
+        /* ----------------------------------------------
+         * [모바일 환경] 탭(클릭) 시 재생 버튼 숨김(페이드아웃) 및 재터치 시 멈춤(페이드인)
+         * ---------------------------------------------- */
+        $link.on('click', function (e) {
+            if (!isMobile()) return;
+
+            // 모바일 팝업(MagnificPopup) 무력화 및 강제 페이지 링크 이동 전면 방어
+            e.preventDefault();
+            e.stopPropagation();
+
+            const videoEl = $video[0];
+            if (!videoEl) return;
+
+            if (videoEl.paused) {
+                // 1. 싱글 플레이 구현: 다른 카드에서 돌고 있던 동영상들은 일제히 정지 및 리셋
+                $('.hover-video').each(function () {
+                    if (this !== videoEl) {
+                        this.pause();
+                        this.currentTime = 0;
+                        $(this).hide().css('opacity', '0');
+                        $(this).closest('.portfolio').removeClass('is-playing');
+                    }
+                });
+
+                // 2. 현재 타겟팅된 비디오 활성화 및 재생
+                $video.show().css('opacity', '1');
+                videoEl.play().then(function () {
+                    // 재생 성공 즉시 클래스를 주입하여 가운데 재생 버튼을 페이드아웃시킵니다.
+                    $container.addClass('is-playing');
+                }).catch(function (err) {
+                    console.warn("Mobile play block active:", err);
+                });
+
+            } else {
+                // 3. 이미 재생 중인 비디오를 다시 터치한 경우 -> 일시정지 및 원상 복구
+                videoEl.pause();
+                $video.hide().css('opacity', '0');
+                // 클래스를 회수하여 숨겨졌던 가운데 재생 버튼이 다시 자연스럽게 나타나도록 처리합니다.
+                $container.removeClass('is-playing');
+            }
+        });
+    });
+});
