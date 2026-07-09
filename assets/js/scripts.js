@@ -386,7 +386,6 @@ jQuery(function ($) {
                 slidesPerView: 1,
                 spaceBetween: 30,
                 loop: true,
-                autoplay: { delay: 6000, disableOnInteraction: false, pauseOnMouseEnter: true },
                 navigation: { nextEl: '.video-swiper-next', prevEl: '.video-swiper-prev' },
                 effect: 'fade',
                 fadeEffect: { crossFade: true }
