@@ -2318,3 +2318,24 @@ video {
     top: 90%;
     right: -33%;
 }
+
+/* ⭐ [탑 이동 버튼 모바일 고정] */
+@media (max-width: 767px) {
+    body .scroll-up {
+        position: fixed !important;
+        bottom: 20px !important;
+        right: 20px !important;
+        width: 75px !important; /* 화면 영역 가림을 줄이기 위해 부드러운 소형화 */
+        z-index: 99999 !important;
+        transform: none !important;
+    }
+    body .scroll-up .char-btn {
+        width: 65px !important;
+        height: auto !important;
+    }
+    body .scroll-up .top-bubble {
+        width: 50px !important;
+        top: -35px !important;
+        right: 8px !important;
+    }
+}
