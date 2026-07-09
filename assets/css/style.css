@@ -5,6 +5,7 @@
     URL: http://demo.trendytheme.net/iamx/html
 */
 
+
 /*
 ====================================
 ------------------------------------
@@ -89,7 +90,8 @@ a:hover {
     text-decoration: none;
 }
 
-/* Transition elements
+
+/* Transition elsements
 ================================================== */
 .navbar a,
 .form-control {
@@ -110,7 +112,8 @@ a,
 }
 
 /* Reset box-shadow
-================================================== */
+/* ================================================== */
+
 .btn,
 .form-control,
 .form-control:hover,
@@ -120,7 +123,11 @@ a,
     box-shadow: none;
 }
 
+
+
+
 /* === Typography ===================================================== */
+
 h1,
 h2,
 h3,
@@ -159,6 +166,8 @@ h6 {
     font-size: 12px;
 }
 
+
+
 /* === FORM STYLE ===================================================== */
 .form-control {
     height: 45px;
@@ -173,6 +182,9 @@ h6 {
     box-shadow: none;
 }
 
+
+
+
 /* Alert Style
 ==================================================*/
 .alert {
@@ -186,6 +198,8 @@ h6 {
     display: inline-block !important;
     margin: 0 !important;
 }
+
+
 
 /* BUTTON STYLE
 ==================================================*/
@@ -258,9 +272,11 @@ h6 {
     border-color: #fff;
 }
 
+
 button:focus {
     outline: none;
 }
+
 
 /*IMAGES
 ==================================================*/
@@ -283,8 +299,11 @@ ul,
 ol {
     margin: 0;
     padding: 0;
-    list-style: none;
+    list-style: none
 }
+
+
+ul.list-check {}
 
 ul.list-check li {
     position: relative;
@@ -297,10 +316,12 @@ ul.list-check li::before {
     margin-right: 10px;
 }
 
+
 /* === MAIN ===================================================== */
 .section-padding {
     padding: 120px 0 100px;
 }
+
 
 /* SECTION TITLE
 ================================================== */
@@ -324,12 +345,15 @@ ul.list-check li::before {
     margin: 0 auto;
 }
 
+
+
 /* === HOME ===================================================== */
 @media (max-width : 640px) {
     .tt-fullHeight {
         height: 560px !important;
     }
 }
+
 
 #home {
     -webkit-background-attachment: fixed;
@@ -359,6 +383,19 @@ video {
 }
 
 /* === NAVIGATION ===================================================== */
+/* 1. 글로벌 헤더 및 고정(Sticky) 영역 (최외곽 / 거시적 설정) */
+.header {
+    position: fixed;
+    width: 100%;
+    top: -100px; /* 초기 화면 진입 시 숨김 처리 */
+    z-index: 9999;
+    transition: top 0.4s ease; /* 스크롤 시 부드럽게 고정되도록 애니메이션 처리 */
+}
+
+.header.sticky-nav {
+    top: 0; /* 모바일 및 데스크톱 스크롤 시 상단에 들뜸 없이 완벽하게 밀착 고정 */
+}
+
 .header::after {
     width: 100%;
     position: absolute;
@@ -368,21 +405,7 @@ video {
     left: 0;
 }
 
-/* 1. 기본 헤더 및 알약 배치 */
-.header {
-    position: fixed;
-    width: 100%;
-    top: -100px;
-    /* 화면 밖으로 숨김 */
-    z-index: 9999;
-    transition: top 0.4s ease;
-}
-
-/* 스크롤 시 sticky 클래스가 붙으면 등장 */
-.header.sticky-nav {
-    top: 200px;
-}
-
+/* 2. 네비게이션 알약(Pill) 내부 레이아웃 및 데코레이터 */
 .nav-pill-container {
     display: flex;
     justify-content: center;
@@ -395,81 +418,59 @@ video {
     align-items: center;
     padding: 10px 40px;
     border-radius: 50px;
-    background: rgba(0, 129, 54, 0.274) !important;
+    background: rgba(144, 215, 163, 0.45) !important; /* 싱그러운 라임-민트빛 투명 글래스 디자인 */
     backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* 2. PC 대응 (내부 메뉴 정렬) */
-@media (min-width: 768px) {
-    .glass-pill-nav {
-        width: auto;
-        min-width: 700px;
-        justify-content: center;
-    }
-
-    .navbar-collapse {
-        display: block !important;
-        height: auto !important;
-    }
-}
-
-/* 3. 모바일 대응 (토글 버튼 보이게 하기 및 반투명 배경 개선) */
-@media (max-width: 767px) {
-    .glass-pill-nav {
-        width: 90%;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        padding: 10px 20px;
-        /* 모바일 메뉴 펼침 시 뒷배경 글자가 비쳐 보이는 흐린 착시현상 해결 */
-        background: rgba(0, 56, 23, 0.96) !important; /* 불투명도가 보완된 짙은 녹색 백그라운드 적용 */
-        backdrop-filter: blur(25px); /* 필터 블러 강도를 높여 더 쾌적한 가독성 제공 */
-    }
-
-    .navbar-collapse {
-        width: 100%;
-        margin-top: 10px;
-    }
-
-    .navbar-nav>li {
-        display: block;
-        text-align: center;
-    }
-
-    .navbar-toggle {
-        display: block !important;
-        float: right;
-    }
-}
-
-/* 4. 부트스트랩 기본 스타일 강제 덮어쓰기 */
+/* 3. 데스크톱 기본 메뉴 요소 및 부트스트랩 강제 재정의 */
 .navbar-custom {
     background: transparent !important;
     border: none !important;
-}
-
-.nav>li>a {
-    text-align: center;
-    color: white;
-    padding: 10px 15px;
-    text-transform: uppercase;
-}
-
-.navbar-custom {
-    border: 0;
-    border-radius: 0;
     margin: 0;
     text-transform: uppercase;
     font-family: 'Pretendard';
 }
 
-.navbar-custom,
-.navbar-custom .dropdown-menu {
-    padding: 0;
+.navbar-nav {
+    width: 100%;
+}
+
+.navbar-custom .navbar-nav > li {
+    gap: 4px;
+}
+
+.navbar-custom .navbar-nav > li > a {
+    display: inline-block;
+    color: #000000;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+/* [데스크톱 전용] 활성화 및 호버 시 가로 알약(Pill) 인디케이터 스타일 */
+.navbar-custom .nav li.active a,
+.navbar-custom .nav li.active > a,
+.navbar-custom .nav li a:hover,
+.navbar-custom .nav li a:focus,
+.navbar-custom .navbar-nav > li.active > a {
+    background: rgba(255, 255, 255, 0.4) !important;
+    border-radius: 50px;
+    outline: 0;
+    color: #008136 !important;
+    box-shadow: 0px 2px 8px rgba(0, 59, 18, 0.15);
 }
 
 .navbar-custom ul li a span {
     margin-left: 5px;
+}
+
+/* 드롭다운 메뉴 스타일 재정의 */
+.navbar-custom,
+.navbar-custom .dropdown-menu {
+    padding: 0;
 }
 
 .navbar-custom .dropdown-menu {
@@ -482,9 +483,6 @@ video {
     border-radius: 0;
     border-bottom: 3px double #ddd;
     background-color: #FFFFFF;
-    -webkit-transition: all 400ms;
-    -moz-transition: all 400ms;
-    -o-transition: all 400ms;
     transition: all 400ms;
 }
 
@@ -493,48 +491,26 @@ video {
     left: 0;
 }
 
-.navbar-custom .navbar-nav>li:hover .dropdown-menu {
-    display: inline-block;
+.navbar-custom .navbar-nav > li:hover .dropdown-menu {
+    display: block;
     opacity: 1;
     visibility: visible;
     margin-top: -2px;
 }
 
-.navbar-custom .navbar-nav>li {
-    gap: 4px;
-}
-
-.navbar-custom .navbar-nav>li>a {
-    display: inline-block;
-    color: #000000;
-    font-size: 14px;
-    font-weight: 700;
-    text-transform: uppercase;
-    text-align: center;
-}
-
-.navbar-custom .dropdown-menu>li {
+.navbar-custom .dropdown-menu > li {
     border-bottom: 1px solid #F0F0F0;
 }
 
-.navbar-custom .dropdown-menu>li:last-child {
+.navbar-custom .dropdown-menu > li:last-child {
     border-bottom: 0;
 }
 
-.navbar-custom .dropdown-menu>li>a {
+.navbar-custom .dropdown-menu > li > a {
     padding: 10px 20px;
     color: #333;
     font-size: 14px;
     font-weight: 700;
-}
-
-.navbar-custom .nav li.active,
-.navbar-custom .nav li a:hover,
-.navbar-custom .nav li a:focus,
-.navbar-custom .navbar-nav>li.active>a {
-    background: none;
-    outline: 0;
-    color: #008136;
 }
 
 .navbar-custom .navbar-brand {
@@ -542,24 +518,19 @@ video {
     font-size: 18px;
 }
 
-.navbar-custom .nav .open>a,
-.navbar-custom .dropdown-menu>li>a:hover,
-.navbar-custom .dropdown-menu>li>a:focus {
+.navbar-custom .nav .open > a,
+.navbar-custom .dropdown-menu > li > a:hover,
+.navbar-custom .dropdown-menu > li > a:focus {
     background: #f5f5f5;
 }
 
-.navbar-custom .navbar-toggle .icon-bar {
-    background: #008136;
-}
-
-.navbar-nav {
-    width: 100%;
-}
-
+/* 4. 모바일 토글 햄버거 버튼 세부 제어 */
 .navbar-toggle {
     position: relative;
     border: none;
     background: transparent !important;
+    margin: 0;
+    padding: 5px;
 }
 
 .navbar-toggle .icon-bar {
@@ -571,7 +542,11 @@ video {
     margin: 4px 0;
 }
 
-/* 활성화 상태: X자 변환 */
+.navbar-custom .navbar-toggle .icon-bar {
+    background: #ffffff; /* 가독성을 위해 흰색으로 고정 */
+}
+
+/* 활성화 시 삼선 햄버거가 X 자로 교차 전환되는 모션 */
 .navbar-toggle.is-active .icon-bar:nth-child(2) {
     opacity: 0;
 }
@@ -583,6 +558,71 @@ video {
 .navbar-toggle.is-active .icon-bar:nth-child(4) {
     transform: rotate(-45deg) translate(-5px, 5px);
 }
+
+/* 5. 미디어 쿼리 모바일 반응형 설정 (가장 미시적 제어) */
+@media (max-width: 767px) {
+    /* 모바일용 컨테이너 확장 및 블러 강화 */
+    .glass-pill-nav {
+        width: 90%;
+        margin: 10px auto;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        padding: 12px 24px;
+        border-radius: 30px;
+        backdrop-filter: blur(25px); 
+        -webkit-backdrop-filter: blur(25px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .navbar-collapse {
+        width: 100%;
+        margin-top: 15px;
+        border: none;
+        box-shadow: none;
+    }
+
+    .navbar-nav {
+        margin: 0;
+        padding: 5px 0;
+    }
+
+    .navbar-nav > li {
+        display: block;
+        text-align: center;
+        margin: 8px 0;
+    }
+
+    .navbar-nav > li > a {
+        color: #003817 !important; /* 모바일에서 눈이 편안한 다크그린 폰트 적용 */
+        font-size: 15px;
+        font-weight: 700;
+        padding: 10px 20px;
+        display: inline-block;
+        border-radius: 0px; /* 알약 형태 제거 */
+        transition: all 0.3s ease;
+    }
+
+    /* ⭐ [핵심 해결책] 모바일에서는 배경 '알약' 디자인을 완전히 비활성화합니다.
+       이를 통해 모바일 수직 리스트 내부에서 미관을 해치던 둥근 이중 캡슐(Double-Wrap) 현상을 근본적으로 차단합니다. */
+    .navbar-custom .nav li.active a,
+    .navbar-custom .nav li.active > a,
+    .navbar-custom .nav li a:hover,
+    .navbar-custom .nav li a:focus,
+    .navbar-custom .navbar-nav > li.active > a {
+        background: transparent !important; /* 모바일 알약 배경 제거 */
+        box-shadow: none !important; /* 그림자 제거 */
+        border-radius: 0px !important; /* 둥근 곡률 제거 */
+        color: #008136 !important; /* 텍스트 강조만 적용 */
+        font-weight: 800;
+    }
+}
+
+
+
+
+
+
+
 
 /* === About Section ===================================================== */
 .short-info {
@@ -606,6 +646,7 @@ video {
     line-height: 1.5;
 }
 
+
 /* ===== 과제 2: 형광펜 하이라이트바 완벽 구동 스타일 ===== */
 .hl-trigger-container {
     position: relative;
@@ -626,10 +667,13 @@ video {
     bottom: 0px;
     width: 100% !important;
     height: 14px !important;
+    /* 형광펜 두께 */
     background-color: rgba(46, 204, 113, 0.4) !important;
+    /* 포인트 연두/녹색 */
     z-index: 2 !important;
     display: block !important;
     transform: scaleX(0);
+    /* 스크립트 실행 전 크기 0 */
     transform-origin: left center;
 }
 
@@ -642,6 +686,7 @@ video {
     align-items: flex-start;
     border-radius: 9px;
     overflow: hidden;
+    /* 위에서 떨어질 때 영역 넘침 방지 */
     padding: 10px 0;
 }
 
@@ -650,8 +695,10 @@ video {
     flex-wrap: wrap;
     width: 100%;
     opacity: 0;
+    /* 스크립트 로드 전 깜빡임 방지 (레퍼런스 h2 스타일 이식) */
 }
 
+/* 레퍼런스의 .word 클래스 스타일 속성을 해시태그 디자인으로 커스텀 변환 */
 .hashtag-headline .tag-word {
     display: inline-block;
     background: #f4f4f5;
@@ -664,12 +711,14 @@ video {
     will-change: transform, opacity;
 }
 
+/* 이미지에 배치되었던 포인트 그린 컬러 활성화 속성 고수 */
 .hashtag-headline .tag-word.bg_green_point {
     background: #008744 !important;
     color: #fff !important;
 }
 
-/* download-button
+
+/*download-button
 ==================================================*/
 .download-button a {
     margin-right: 20px;
@@ -679,6 +728,7 @@ video {
 .download-button a i {
     margin-right: 10px;
 }
+
 
 .biography {
     position: relative;
@@ -690,7 +740,9 @@ video {
     bottom: -3px;
     width: 100%;
     border-radius: 10px;
+    /* height: 20px; */
 }
+
 
 .myphoto {
     position: relative;
@@ -723,6 +775,7 @@ video {
         transform: translateX(-30%);
     }
 }
+
 
 /* === Portfolio Section ===================================================== */
 .add p {
@@ -772,34 +825,43 @@ video {
     transform: scale(1.05);
 }
 
+/* 호버 비디오 공통 스타일 */
 .post-thumbnail,
 .portfolio {
     position: relative;
     overflow: hidden;
 }
 
+/* Portfolio 섹션의 그리드 정렬을 맞추기 위한 Flexbox 적용 */
 #portfolio .row {
     display: flex;
     flex-wrap: wrap;
 }
 
+/* 부트스트랩 기본 float 속성과 빈 공간 걸림 현상을 초기화합니다 */
 #portfolio .row .col-sm-6 {
     float: none;
     display: flex;
     margin-bottom: 30px;
+    /* 아이템 하단 간격 조정 */
 }
 
+/* 내부 카드 형태의 포스트 박스가 부모 높이를 가득 채우도록 설정 */
 #portfolio .blog-post-wrapper {
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    /* 이미지와 텍스트 배치 균형 최적화 */
     background: #fff;
+    /* 필요 시 배경색 유지 */
 }
 
+/* 썸네일 영역 영역 내부 이미지 비율 유지 고정 */
 #portfolio .post-thumbnail {
     width: 100%;
     aspect-ratio: 2756 / 1536;
+    /* 작성하신 이미지 원본 비율 지정 */
     overflow: hidden;
     position: relative;
     border-radius: 25px;
@@ -819,6 +881,7 @@ video {
     height: 100%;
     object-fit: cover;
     z-index: 2;
+    /* 이미지 위로 올라오도록 설정 */
     border-radius: 25px;
 }
 
@@ -855,6 +918,10 @@ video {
     color: #008136;
 }
 
+
+/*
+Icon for all respective meta
+====================================== */
 .the-time::before {
     content: "\f133";
 }
@@ -878,15 +945,23 @@ video {
     font-size: 30px;
 }
 
+
+
+
+/* 모든 섹션의 썸네일 컨테이너에 둥근 모서리 및 가림 처리 적용 */
 .post-thumbnail,
 .sns-bg,
 .portfolio-bg,
 .portfolio {
     border-radius: 25px !important;
+    /* 모서리를 둥글게 설정 */
     overflow: hidden !important;
+    /* 둥근 모서리 밖으로 나가는 이미지/비디오/오버레이 잘라내기 */
     position: relative;
+    /* 내부 절대 위치 요소들의 기준점 유지 */
 }
 
+/* 이미지 및 호버 비디오가 둥근 영역에 꽉 차도록 세부 조정 */
 .post-thumbnail img,
 .sns-bg img,
 .portfolio-bg img,
@@ -895,22 +970,34 @@ video {
     object-fit: cover;
 }
 
+
+
+
+
+
+
 /* === SNS-design Section ===================================================== */
 .sns-item {
     position: relative;
+    /* 캐릭터 배치의 기준점 */
     overflow: visible;
+    /* 캐릭터가 밖으로 튀어나와도 보이게 함 */
 }
 
 .camera-char {
     position: absolute;
     top: -40px;
+    /* 작업물 이미지 상단에서 위로 살짝 튀어나옴 */
     right: 10px;
+    /* 이미지 우측 정렬 */
     width: 80px;
     z-index: 10;
     opacity: 0;
     transform: translateY(20px);
+    /* 아래에서 등장 준비 */
 }
 
+/* 레이아웃 */
 .sns-wrapper-flex {
     display: flex;
     align-items: center;
@@ -923,13 +1010,24 @@ video {
 }
 
 .right-slider-zone {
-    width: 75%;
-    overflow: visible;
+    width: 80%;
+    overflow: hidden;
     position: relative;
-    padding-right: 30px;
 }
 
+/* 오른쪽 슬라이더 영역 설정 */
+.right-slider-zone {
+    width: 75%;
+    overflow: visible;
+    /* 잘린 카드를 보여주기 위해 visible */
+    position: relative;
+    padding-right: 30px;
+    /* 오른쪽 여백 확보 */
+}
+
+
 .sns-bg {
+    /* margin-bottom: 20px; */
     border: 1px solid #eee;
     border-radius: 25px;
 }
@@ -988,7 +1086,10 @@ video {
     margin: 0;
 }
 
+
 @media(max-width:767px) {
+
+    /* SNS 섹션 모바일 2x1 그리드 레이아웃 */
     .sns-container,
     .sns-wrapper {
         display: grid !important;
@@ -1007,11 +1108,13 @@ video {
     }
 }
 
+
 /* ===== Artwork 대형화 및 우측 원점 격리 스타일 ===== */
 .works-section {
     position: relative;
     padding: 200px 0 !important;
     min-height: 140vh;
+    /* 타 섹션과의 확실한 거리 확보 */
     z-index: 10;
 }
 
@@ -1032,6 +1135,7 @@ video {
     z-index: 20;
 }
 
+/* 텍스트가 바뀔 때 자연스러운 전환 효과를 위한 스타일 */
 .artwork-text-switcher {
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
@@ -1060,28 +1164,39 @@ video {
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    /* 우측 끝으로 정렬 */
 }
 
+/* 원점을 오른쪽 화면 정바깥 영역으로 배치 */
 .circle-pivot-center {
     position: relative;
     width: 1px;
     height: 1px;
     right: -150%;
+    /* 화면 오른쪽 끝 라인 너머 */
     top: 10%;
 }
 
+/* 카드를 대형화하고 겹치지 않도록 세팅 */
 .rotator-card-item {
     position: absolute;
     width: 680px;
+    /* 하나의 작업물이 웅장하게 보이도록 대형화 */
     aspect-ratio: 4 / 3;
     background: #f4f4f5;
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 40px 80px rgba(0, 0, 0, 0.12);
+
+    /* 원점을 오른쪽 화면 바깥(1000px 뒤)으로 격리 설정 */
     transform-origin: 1000px 50% !important;
+
     left: -950px;
+    /* 원점으로부터 왼쪽 화면 안으로 들어오도록 오프셋 배치 */
     top: -217px;
+    /* 세로 정중앙 배치 보정 */
     opacity: 0;
+    /* 기본 상태는 투명하게 대기 */
     will-change: transform, opacity;
 }
 
@@ -1097,50 +1212,107 @@ video {
     object-fit: cover;
 }
 
+
+/* ⭐ [Artwork 섹션 모바일 순환/원형 회전 기능 전면 활성화 최적화] */
 @media (max-width: 767px) {
+    .works-section {
+        padding: 100px 0 !important;
+        min-height: 100vh;
+    }
+
     .works-section .artwork-skew-container {
-        display: block !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
         width: 100% !important;
-        padding: 0 20px !important;
+        padding: 0 15px !important;
+        height: auto !important;
     }
 
     .works-section .skew-left-text-block {
-        position: static !important;
+        position: relative !important;
+        top: auto !important;
         width: 100% !important;
-        margin-bottom: 30px !important;
+        margin-bottom: 20px !important;
+        text-align: center;
+    }
+
+    .works-section .skew-main-title {
+        font-size: 28px !important;
+        margin-bottom: 10px !important;
+    }
+
+    .works-section .skew-desc-list p {
+        font-size: 14px;
+        line-height: 1.6;
     }
 
     .works-section .skew-right-list-block {
         width: 100% !important;
-        position: static !important;
-        height: auto !important;
-        display: block !important;
+        height: 45vh !important;
+        position: relative !important;
+        top: auto !important;
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        overflow: visible !important;
     }
 
+    /* 원점을 모바일 우측 화면 바깥 먼 곳으로 배치하여 부드러운 둥근 궤적 확보 */
+    .works-section .circle-pivot-center {
+        position: absolute !important;
+        width: 1px !important;
+        height: 1px !important;
+        right: -820px !important;
+        top: 50% !important;
+    }
+
+    /* GSAP 스크롤 타임라인 궤적 공식(x: -1000px, transform-origin: 1000px)에 맞춘 크기 및 모바일 중앙 배치 */
     .works-section .rotator-card-item {
-        position: static !important;
-        width: 100% !important;
-        height: auto !important;
-        margin-bottom: 20px !important;
-        left: auto !important;
-        top: auto !important;
-        transform: none !important;
-        opacity: 1 !important;
+        position: absolute !important;
+        width: 600px !important; /* 모바일 특화 아담한 정밀 비율 사이즈 */
+        aspect-ratio: 4 / 3 !important;
+        border-radius: 12px !important;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15) !important;
+        left: -440px !important; /* GSAP 오프셋 연산을 거친 후 뷰포트 정확히 수평 중앙에 안착 */
+        top: -105px !important;  /* 카드 세로 중앙 정렬 보정 */
+        transform-origin: 1000px 50% !important; /* 원본 GSAP 스케일 준수 및 안정적인 회전 구현 */
+        margin-bottom: 0 !important;
+        overflow: hidden !important;
+        opacity: 0; /* GSAP 스크롤 트리거 가시성 및 페이드 전환과 연동 */
         visibility: visible !important;
-        aspect-ratio: 16 / 9;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        overflow: hidden;
     }
 
     .works-section .rotator-card-item img {
         display: block !important;
         width: 100% !important;
-        height: auto !important;
-        opacity: 1 !important;
+        height: 100% !important;
+        object-fit: cover !important;
+    }
+}
+
+
+
+/* 모바일 반응형 처리 */
+@media (max-width: 768px) {
+    .video-content-wrapper {
+        flex-direction: column;
+    }
+    .video-container {
+        margin-right: 0 !important;
+        margin-bottom: 20px;
+    }
+    .image-container {
+        flex: 0 0 100% !important;
     }
 }
 
 /* === Resume Section ===================================================== */
+
+/*---------------------------------------------------------
+Resume Timeline
+-----------------------------------------------------------*/
 .resume-title {
     position: relative;
 }
@@ -1184,6 +1356,36 @@ video {
     position: relative;
 }
 
+/* .resume:before {
+    content: "";
+    position: absolute;
+    top: -8px;
+    width: 20px;
+    height: 20px;
+    background-color: #fff;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 50px;
+    border: 3px solid #d03131;
+    z-index: 5;
+} */
+
+/* .resume:after {
+    content: "";
+    position: absolute;
+    bottom: -8px;
+    width: 10px;
+    height: 10px;
+    background-color: #e1e1e1;
+    left: 50%;
+    margin-left: -6px;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+} */
+
 .timeline:before {
     content: "";
     position: absolute;
@@ -1192,6 +1394,7 @@ video {
     width: 2px;
     left: 50%;
     transform: translateX(-50%);
+    /* margin-left: -1.5px; */
     background-color: #008136;
 }
 
@@ -1241,6 +1444,17 @@ video {
     background-color: #fff;
     left: 20px;
 }
+
+
+/* .timeline>li .posted-date .month {
+    font-size: 18px;
+    line-height: 20px;
+    font-weight: 700;
+    display: block;
+    color: #2c3e50;
+    top: 0;
+    float: left;
+} */
 
 .timeline>li.timeline-inverted>.timeline-panel {
     float: right;
@@ -1298,6 +1512,10 @@ video {
     z-index: 5;
 }
 
+
+
+
+
 @media(min-width:992px) {
     .timeline:before {
         left: 50%;
@@ -1331,6 +1549,22 @@ video {
         transition: all 400ms;
     }
 
+    /* .timeline-content::after {
+        border: 1px solid #eee;
+        width: 100%;
+        position: absolute;
+        content: "";
+        bottom: -3px;
+        height: 10px;
+        left: 0;
+        z-index: -1;
+    } */
+
+    /* .timeline>li .timeline-content:hover {
+        background: #68c3a3;
+        color: #fff;
+    } */
+
     .timeline>li .timeline-content {
         border: 1px solid #eee;
     }
@@ -1338,6 +1572,7 @@ video {
     .timeline>li .timeline-content:hover {
         border: 1px solid #008136;
     }
+
 
     .timeline>li .timeline-panel::before,
     .timeline>li.timeline-inverted .timeline-panel::before {
@@ -1357,6 +1592,7 @@ video {
         transition: all 400ms;
     }
 
+    /* 좌측 패널 삼각형 라인컬러  */
     .timeline>li .timeline-panel:hover::before {
         border-left: 12px solid #008136;
     }
@@ -1370,6 +1606,7 @@ video {
         transition: all 400ms;
     }
 
+    /* 우측 패널 삼각형 라인컬러  */
     .timeline>li.timeline-inverted .timeline-panel:hover::before {
         border-right: 12px solid #008136;
         border-left: 0;
@@ -1394,6 +1631,7 @@ video {
         transition: all 400ms;
     }
 
+    /* 좌측패널 삼각형 인컬러 */
     .timeline>li .timeline-panel:hover::after {
         border-left: 12px solid #fff;
     }
@@ -1408,6 +1646,7 @@ video {
         transition: all 400ms;
     }
 
+    /* 우측패널 삼각형 인컬러 */
     .timeline>li.timeline-inverted .timeline-panel:hover::after {
         border-right: 12px solid #fff;
         border-left: 0;
@@ -1423,12 +1662,16 @@ video {
     .timeline>li .posted-date .month {
         float: none;
     }
+
+
 }
+
+
 
 /* Skill Section
 ================================================== */
 .skills-section {
-    color: #33;
+    color: #333;
 }
 
 .chart-text span {
@@ -1438,6 +1681,7 @@ video {
 .skill-chart {
     text-align: left;
     padding: 60px 0;
+
 }
 
 .skills-section .section-title {
@@ -1462,7 +1706,10 @@ video {
     text-align: center;
 }
 
+
+
 /* progress-bar ==================================================*/
+
 .skill-progress {
     position: relative;
 }
@@ -1494,6 +1741,7 @@ video {
     transition: width 2s ease-in-out;
 }
 
+
 .skill-chart h3 {
     margin-top: 20px;
 }
@@ -1511,6 +1759,8 @@ video {
     font-weight: 400;
     margin-bottom: 5px;
 }
+
+
 
 /* === Chart CSS  ===================================================== */
 .chart {
@@ -1550,6 +1800,7 @@ video {
     margin-top: 20px;
 }
 
+/*.percent:after {content: '%';margin-left: 0.1em;font-size: .8em;}*/
 .angular {
     margin-top: 100px;
 }
@@ -1561,6 +1812,8 @@ video {
 .chart .chart-text h3 {
     font-size: 22px;
 }
+
+
 
 /* interview
 ==================================================*/
@@ -1591,8 +1844,13 @@ video {
     font-weight: 600;
 }
 
+
+
+
+
 /* contact
 ==================================================*/
+
 .contact_in {
     text-align: left;
 }
@@ -1637,11 +1895,15 @@ video {
     color: #425BB5;
 }
 
-/* PopUp fade effect ==================================================*/
+
+
+
+/*PopUp fade effect==================================================*/
 .mfp-with-zoom .mfp-container,
 .mfp-with-zoom.mfp-bg {
     opacity: 0;
     -webkit-backface-visibility: hidden;
+    /* ideally, transition speed should match zoom duration */
     -webkit-transition: all 0.3s ease-out;
     -moz-transition: all 0.3s ease-out;
     -o-transition: all 0.3s ease-out;
@@ -1661,25 +1923,34 @@ video {
     opacity: 0;
 }
 
+
 /* === Footer Wrapper ===================================================== */
 .footer-wrapper {
     background: #eae2d8;
     padding: 20px 0;
     color: #333;
+
 }
 
 .copyright p {
     margin: 0;
 }
 
+
+/* ---------------------------------------------- /*
+ * Scroll to top
+/* ---------------------------------------------- */
+
 /* ===== 탑 이동 버튼 스타일 개편 ===== */
 .scroll-up {
     position: fixed;
     display: none;
+    /* 스크롤 100px 이상일 때 스크립트로 fadeIn 됩니다 */
     z-index: 999;
     bottom: 2em;
     right: 2em;
     width: 110px;
+    /* 버튼 전체를 감싸는 적정 너비 */
 }
 
 .scroll-up a {
@@ -1694,19 +1965,24 @@ video {
     height: auto;
     display: block;
     margin-left: auto;
+    /* 우측 정렬 */
     border-radius: 0;
     animation: floatingChar 3s infinite ease-in-out;
+    /* 상시 둥둥 모션 */
 }
 
 /* 2번 이미지: 말풍선 기본 대기 스타일 */
 .scroll-up .top-bubble {
     position: absolute;
     top: -55px;
+    /* 캐릭터 위쪽 배치 */
     right: 15px;
+    /* 캐릭터의 오른편 위쪽 매칭 */
     width: 75px;
     height: auto;
     z-index: 10;
     opacity: 0;
+    /* 평소에는 숨김 */
     pointer-events: none;
 }
 
@@ -1715,15 +1991,21 @@ video {
     0% {
         transform: translateY(0);
     }
+
     50% {
         transform: translateY(-8px);
+        /* 위로 8px 이동 */
     }
+
     100% {
         transform: translateY(0);
     }
 }
 
-/* Mouse animate icon */
+/* ---------------------------------------------- /*
+ * Mouse animate icon
+/* ---------------------------------------------- */
+
 .mouse-icon {
     position: absolute;
     left: 50%;
@@ -1768,32 +2050,40 @@ video {
         top: 5px;
         opacity: 0;
     }
+
     30% {
         top: 10px;
         opacity: 1;
     }
+
     100% {
         top: 25px;
         opacity: 0;
     }
 }
+
 
 @keyframes drop {
     0% {
         top: 5px;
         opacity: 0;
     }
+
     30% {
         top: 10px;
         opacity: 1;
     }
+
     100% {
         top: 25px;
         opacity: 0;
     }
 }
 
-/* Preloader */
+/* ---------------------------------------------- /*
+ * Preloader
+/* ---------------------------------------------- */
+
 #tt-preloader {
     position: fixed;
     top: 0;
@@ -1814,7 +2104,12 @@ video {
     color: #333;
 }
 
+
+
+
+
 /* === Home Page Two === */
+
 #homeTwo {
     background: url(../images/home-2.jpg) no-repeat center center;
     background-color: #222;
@@ -1829,6 +2124,7 @@ video {
     line-height: 1.4;
 }
 
+/* 스크립트에 의해 분할될 글자들의 기본 상태 */
 .reveal-text .char {
     display: inline-block;
     will-change: transform, opacity;
@@ -1842,17 +2138,23 @@ video {
     display: inline-block;
 }
 
+/* 형광펜 효과를 낼 밑줄 레이어 */
 .highlight-point::after {
     content: '';
     position: absolute;
     left: 0;
     bottom: 2px;
+    /* 글자 하단 배치 */
     width: 100%;
     height: 35%;
+    /* 글자 높이의 35% 두께 */
     background-color: rgba(46, 204, 113, 0.3);
+    /* 이미지의 아이덴티티 녹색 계열 투명도 반영 */
     z-index: -1;
     transform: scaleX(0);
+    /* 초기 상태에는 가로 크기 0 */
     transform-origin: left center;
+    /* 왼쪽에서부터 그어지도록 기준점 설정 */
 }
 
 .short-info {
@@ -1884,7 +2186,9 @@ video {
     margin-bottom: 0;
 }
 
-/* SERVICE SECTION */
+
+
+/*SERVICE SECTION*/
 .service-section {
     background: url(../../assets/images/service-bg.jpg) no-repeat center center;
     background-size: cover;
@@ -1896,7 +2200,7 @@ video {
 }
 
 .service-wrap {
-    padding: 40px 0;
+    padding: 40px 0
 }
 
 .service-box {
@@ -1959,7 +2263,7 @@ video {
     transition: all 300ms;
 }
 
-/* HOMEPAGE TWO */
+/*HOMEPAGE TWO*/
 #homeTwo {
     position: relative;
 }
@@ -2019,11 +2323,14 @@ video {
     box-shadow: 0 0px 0px 1px #eee;
 }
 
-/* effect ================================================== */
+
+
+/* effect================================================== */
 @keyframes ani1 {
     0% {
         opacity: 0;
     }
+
     100% {
         opacity: 100;
     }
@@ -2033,6 +2340,7 @@ video {
     0% {
         opacity: 100;
     }
+
     100% {
         opacity: 0;
     }
@@ -2040,19 +2348,21 @@ video {
 
 @keyframes ani3 {
     0% {
-        transform: rotate(0);
+        transform: rotate(0)
     }
+
     100% {
-        transform: rotate(90deg);
+        transform: rotate(90deg)
     }
 }
 
 @keyframes ani4 {
     0% {
-        transform: rotate(0);
+        transform: rotate(0)
     }
+
     100% {
-        transform: rotate(-90deg);
+        transform: rotate(-90deg)
     }
 }
 
@@ -2214,4 +2524,201 @@ video {
     width: 20%;
     top: 90%;
     right: -33%;
+}
+
+
+/* ==========================================================================
+   12. Video Swiper & Interaction Update (9:16 비율 반영 개편)
+   ========================================================================== */
+.videoSwiper {
+    width: 100%;
+    padding: 20px 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.video-content-layout {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 30px;
+    box-sizing: border-box;
+}
+
+.video-left-char {
+    flex: 0 0 22%;
+    max-width: 22%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; /* 캐릭터 이미지 자체를 하단 정렬 */
+    align-self: flex-end;  /* 부모 비디오 슬라이드 전체 영역에서 바닥(Bottom)에 붙도록 지정 */
+}
+
+.video-left-char img {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+/* 9:16 최적화 재생 구역 레이아웃 비율 */
+.video-center-player {
+    flex: 0 0 38%;
+    max-width: 38%;
+}
+
+.video-center-player .portfolio-bg {
+    width: 80%;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    margin-left: 30px;
+}
+
+.video-center-player .portfolio {
+    width: 100%;
+    /* ⭐ 핵심 요청 반영: 영상 및 플레이어 레이아웃의 비율을 정밀한 세로형 9:16 구조로 변경 */
+    aspect-ratio: 9 / 16;
+    position: relative;
+    cursor: pointer;
+}
+
+.video-center-player .video_thumb {
+    width: 100%;
+    height: 100%;
+    /* 세로로 길어진 비율 안에서 미디어가 잘리거나 찌그러지지 않도록 커버 처리 */
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.video-center-player .portfolio:hover .video_thumb {
+    transform: scale(1.05);
+}
+
+.video-center-player .hover-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 2;
+    opacity: 0;
+    display: none;
+    border-radius: 25px;
+    pointer-events: none;
+}
+
+.video-right-desc {
+    flex: 0 0 32%;
+    max-width: 32%;
+    padding-left: 15px;
+    text-align: left;
+    opacity: 0;
+    transform: translateX(-50px);
+    box-sizing: border-box;
+}
+
+.video-right-desc h3 {
+    font-family: 'Paperlogy-5Medium';
+    font-size: 22px;
+    line-height: 1.4;
+    color: #008136;
+    margin-bottom: 15px;
+    text-transform: none;
+}
+
+.video-right-desc p {
+    font-family: 'Pretendard';
+    font-size: 15px;
+    line-height: 1.7;
+    color: #555;
+    margin: 0;
+    font-weight: 500;
+}
+
+/* Swiper navigation custom styles */
+.video-swiper-controls {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    gap: 25px;
+    /* margin-top: 35px; */
+}
+
+.video-swiper-prev,
+.video-swiper-next {
+    width: 46px;
+    height: 46px;
+    border: 2px solid #008136;
+    border-radius: 50%;
+    color: #008136;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.video-swiper-prev:hover,
+.video-swiper-next:hover {
+    background-color: #008136;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 129, 54, 0.3);
+}
+
+/* Responsive Media Queries */
+@media (max-width: 991px) {
+    .video-right-desc h3 {
+        font-size: 18px;
+    }
+    .video-right-desc p {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 767px) {
+    .video-content-layout {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+    
+    .video-left-char,
+    .video-center-player,
+    .video-right-desc {
+        flex: 0 0 100%;
+        max-width: 100%;
+        width: 100%;
+    }
+    
+    .video-left-char img {
+        display: none;
+    }
+    
+    /* 모바일 반응형 최적화 시에도 세로형이 너무 크지 않도록 너비 제어 */
+    .video-center-player {
+        max-width: 400px;
+        margin: 0 auto;
+    }
+    
+    .video-right-desc {
+        max-width: 60%;
+        padding-left: 0;
+        text-align: center;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+    
+    .video-right-desc h3 {
+        margin-bottom: 8px;
+    }
+    .video-swiper-controls{
+        justify-content: center;
+        margin-top: 30px;
+    }
 }
