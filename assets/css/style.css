@@ -1,11 +1,33 @@
-/* STREAMING_CHUNK:Defining global variables and core styles... /
-/
-Author: TrendyTheme
-Template: I AM X
-Version: 1.2
-URL: http://demo.trendytheme.net/iamx/html
+/*
+    Author: TrendyTheme
+    Template: I AM X
+    Version: 1.2
+    URL: http://demo.trendytheme.net/iamx/html
 */
 
+/*
+====================================
+------------------------------------
+    0. General & Typography (Core Base)
+    1. Home Section (#home)
+    2. Navigation Section (.header)
+    3. About Me Section (#about)
+    4. Portfolio Section (#portfolio)
+    5. SNS-design Section (#sns-design)
+    6. Artwork Section (#artwork)
+    7. Video Section (#video-section)
+    8. Resume Section (#resume)
+    9. Skills Section (#skills)
+    10. Interview Section (#interview)
+    11. Contact Section (#contact)
+    12. Scroll-Up & Extra Utilities (.scroll-up)
+-------------------------------------
+=====================================
+*/
+
+/* ==========================================================================
+   0. General & Typography (Core Base)
+   ========================================================================== */
 @font-face {
     font-family: 'Paperlogy-5Medium';
     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-5Medium.woff2') format('woff2');
@@ -30,7 +52,21 @@ html {
     overflow-x: hidden;
 }
 
-/* STREAMING_CHUNK:Styling common anchors and layouts... */
+/* 전체 바닥 배경 마우스 물결 트랙킹 그래디언트 */
+.mouse-wave-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(163, 230, 53, 0.6) 0%, rgba(163, 230, 53, 0.2) 40%, rgba(255, 255, 255, 0) 70%);
+    pointer-events: none;
+    z-index: -1;
+    will-change: transform;
+    transform: translate3d(-100%, -100%, 0);
+}
+
 a {
     color: #333333;
 }
@@ -49,6 +85,7 @@ a:hover {
     text-decoration: none;
 }
 
+/* Transition elements */
 .navbar a,
 .form-control {
     transition: all 0.4s ease-in-out 0s;
@@ -67,45 +104,19 @@ a,
     box-shadow: none;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1, h2, h3, h4, h5, h6 {
     font-weight: 700;
     margin: 0;
     text-transform: uppercase;
 }
 
-h1 {
-    font-size: 36px;
-    line-height: 36px;
-}
+h1 { font-size: 36px; line-height: 36px; }
+h2 { font-size: 30px; line-height: 30px; }
+h3 { font-size: 24px; line-height: 24px; }
+h4 { font-size: 18px; }
+h5 { font-size: 14px; }
+h6 { font-size: 12px; }
 
-h2 {
-    font-size: 30px;
-    line-height: 30px;
-}
-
-h3 {
-    font-size: 24px;
-    line-height: 24px;
-}
-
-h4 {
-    font-size: 18px;
-}
-
-h5 {
-    font-size: 14px;
-}
-
-h6 {
-    font-size: 12px;
-}
-
-/* STREAMING_CHUNK:Styling forms, alert boxes and buttons... */
 .form-control {
     height: 45px;
     background-color: #f7f7f7;
@@ -144,7 +155,6 @@ h6 {
     border-radius: 4px;
 }
 
-/* STREAMING_CHUNK:Styling primary theme buttons and general lists... */
 .btn-primary {
     background-color: #68c3a3;
     border-color: rgba(51, 51, 51, 0.15);
@@ -183,8 +193,7 @@ hr {
     padding: 0;
 }
 
-ul,
-ol {
+ul, ol {
     margin: 0;
     padding: 0;
     list-style: none;
@@ -225,11 +234,10 @@ ul.list-check li::before {
     margin: 0 auto;
 }
 
-/* ==========================================================================
 
-Home Section (#home)
-========================================================================== /
-/ STREAMING_CHUNK:Styling video home layout... */
+/* ==========================================================================
+   1. Home Section (#home)
+   ========================================================================== */
 @media (max-width : 640px) {
     .tt-fullHeight {
         height: 560px !important;
@@ -263,10 +271,10 @@ video {
     display: none;
 }
 
+
 /* ==========================================================================
-2. Navigation Section (.header)
-========================================================================== /
-/ STREAMING_CHUNK:Styling desktop navigation menu... */
+   2. Navigation Section (.header)
+   ========================================================================== */
 .header {
     position: fixed;
     width: 100%;
@@ -430,7 +438,6 @@ video {
     transform: rotate(-45deg) translate(-5px, 5px);
 }
 
-/* STREAMING_CHUNK:Styling mobile navigation media query... */
 @media (max-width: 767px) {
     .glass-pill-nav {
         width: 90%;
@@ -483,14 +490,12 @@ video {
         color: #008136 !important;
         font-weight: 800;
     }
-
-
 }
 
+
 /* ==========================================================================
-3. About Me Section (#about)
-========================================================================== /
-/ STREAMING_CHUNK:Styling about section reveal text and bio photo... */
+   3. About Me Section (#about)
+   ========================================================================== */
 .short-info {
     margin-bottom: 40px;
 }
@@ -539,7 +544,7 @@ video {
     transform-origin: left center;
 }
 
-/* 해시태그 무작위 공중 낙하 구역 */
+/* 해시태그 무작위 낙하 구역 */
 .hashtag-split-zone {
     position: relative;
     width: 100%;
@@ -680,10 +685,10 @@ video {
     margin-bottom: 0;
 }
 
+
 /* ==========================================================================
-4. Portfolio Section (#portfolio)
-========================================================================== /
-/ STREAMING_CHUNK:Styling portfolio thumb grid and scale motion... */
+   4. Portfolio Section (#portfolio)
+   ========================================================================== */
 .add p {
     font-family: 'Pretendard';
     font-size: 15px;
@@ -758,6 +763,17 @@ video {
     object-fit: cover;
 }
 
+.hover-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 2;
+    border-radius: 25px;
+}
+
 .entry-header {
     padding: 0 12px;
 }
@@ -830,10 +846,10 @@ video {
     object-fit: cover;
 }
 
+
 /* ==========================================================================
-5. SNS-design Section (#sns-design)
-========================================================================== /
-/ STREAMING_CHUNK:Styling sns swiper sliders and responsive layout... */
+   5. SNS-design Section (#sns-design)
+   ========================================================================== */
 .sns-item {
     position: relative;
     overflow: visible;
@@ -920,7 +936,6 @@ video {
 }
 
 @media(max-width:767px) {
-
     .sns-container,
     .sns-wrapper {
         display: grid !important;
@@ -937,14 +952,12 @@ video {
     .left-character-zone {
         width: 40%;
     }
-
-
 }
 
+
 /* ==========================================================================
-6. Artwork Section (#artwork) & 3D Wheel Rotating Cards
-========================================================================== /
-/ STREAMING_CHUNK:Styling 3D circular rotator and skew elements... */
+   6. Artwork Section (#artwork)
+   ========================================================================== */
 #artwork {
     position: relative;
     padding: 200px 0;
@@ -1009,7 +1022,6 @@ video {
 }
 
 /* 카드를 대형화하고 겹치지 않도록 초기 세팅 */
-
 #artwork .rotator-card-item {
     position: absolute;
     width: 680px;
@@ -1022,7 +1034,7 @@ video {
     left: -950px;
     top: -217px;
     opacity: 0;
-    will-change: transform,
+    will-change: transform, opacity;
 }
 
 #artwork .rotator-card-item a.image-link {
@@ -1081,6 +1093,7 @@ video {
         overflow: visible;
     }
 
+    /* 원형 궤적 중심 원점을 모바일 뷰포트 크기에 맞춰 정밀 격리 */
     #artwork .circle-pivot-center {
         position: absolute;
         width: 1px;
@@ -1104,14 +1117,12 @@ video {
         height: 100%;
         object-fit: cover;
     }
-
-
 }
 
+
 /* ==========================================================================
-7. Video Section (#video-section) - Swiper, PC hover & Mobile Controls
-========================================================================== */
-/* STREAMING_CHUNK:Styling video section layouts and control layouts... */
+   7. Video Section (#video-section)
+   ========================================================================== */
 .videoSwiper {
     width: 100%;
     padding: 20px 0;
@@ -1153,8 +1164,7 @@ video {
     border-radius: 25px;
     overflow: hidden;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-    margin-left: 30px;
-    /* 데스크톱 최적 정렬 */
+    margin-left: 30px; /* PC 정렬 여백 */
 }
 
 .video-center-player .portfolio {
@@ -1176,7 +1186,7 @@ video {
     transform: scale(1.05);
 }
 
-/* [공통/PC] 끊김 튕김 오류를 방지하는 포인터 차단 기법 */
+/* 포인터 이벤트 튕김 방지 및 비디오 공통 제어 */
 .hover-video {
     position: absolute;
     top: 0;
@@ -1186,7 +1196,7 @@ video {
     object-fit: cover;
     z-index: 2;
     border-radius: 25px;
-    pointer-events: none;
+    pointer-events: none; /* 좌표 튕김 오류 차단 핵심 설정 */
     transition: opacity 0.3s ease;
 }
 
@@ -1257,8 +1267,6 @@ video {
     .video-right-desc p {
         font-size: 13px;
     }
-
-
 }
 
 @media (max-width: 768px) {
@@ -1275,102 +1283,111 @@ video {
     .video-content-wrapper .image-container {
         flex: 0 0 100%;
     }
-
-
 }
 
-/* STREAMING_CHUNK:Styling video section mobile overrides... /
 @media (max-width: 767px) {
-/ ⭐ [교정 완료] 상속된 margin-left를 auto 마진으로 강제 덮어써 수평 정중앙 정렬 확보 */
-.video-center-player .portfolio-bg {
-    margin-left: auto !important;
-    margin-right: auto !important;
-    float: none !important;
-    display: block !important;
-    width: 100% !important;
-    max-width: 320px;
-}
+    /* ⭐ [핵심 수정 1] 모바일 비디오 카드 수평 정중앙 정렬 보정 */
+    .video-center-player .portfolio-bg {
+        margin-left: auto !important;
+        margin-right: auto !important;
+        margin: 0 auto !important; /* 좌우 마진 자동 분배로 강제 중앙 안착 */
+        width: 100% !important;
+        max-width: 320px;
+    }
 
-/* 재생 버튼 정가운데 정렬 기준 상대선 확보 */
-.portfolio-bg,
-.portfolio {
-    position: relative !important;
-}
+    .portfolio-bg, .portfolio {
+        position: relative !important;
+    }
 
-.video-content-layout {
-    flex-direction: column;
-    text-align: center;
-}
+    .video-content-layout {
+        flex-direction: column;
+        text-align: center;
+    }
 
-.video-left-char {
-    display: none;
-}
+    .video-left-char {
+        display: none;
+    }
 
-.video-center-player {
-    width: 100%;
-    max-width: 400px;
-    margin: 0 auto;
-}
+    .video-center-player {
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
+    }
 
-.video-right-desc {
-    max-width: 80%;
-    padding-left: 0;
-    text-align: center;
-    opacity: 1 !important;
-    transform: none !important;
-}
+    .video-right-desc {
+        max-width: 80%;
+        padding-left: 0;
+        text-align: center;
+        opacity: 1 !important;
+        transform: none !important;
+    }
 
-.video-right-desc h3 {
-    margin-bottom: 8px;
-}
+    .video-right-desc h3 {
+        margin-bottom: 8px;
+    }
 
-.video-swiper-controls {
-    justify-content: center;
-    margin-top: 30px;
-}
+    /* ⭐ [핵심 수정 2] 모바일 화면에서 Swiper 높이 초과로 인한 컨트롤 잘림 해결 */
+    .videoSwiper {
+        overflow: visible !important; /* 바깥 영역 잘림 제거 */
+        padding-bottom: 80px !important; /* 컨트롤 버튼이 안정적으로 들어올 공간 확보 */
+    }
 
-/* ⭐ [교정 완료] 터치 이벤트를 통과시키는 모바일 최적화 재생 버튼 디자인 */
-.mobile-play-btn {
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    top: 50% !important;
-    left: 50% !important;
-    transform: translate(-50%, -50%) scale(1) !important;
-    width: 60px !important;
-    height: 60px !important;
-    background: rgba(0, 129, 54, 0.9) !important;
-    /* 포인트 그린 컬러 */
-    color: #ffffff !important;
-    border-radius: 50% !important;
-    font-size: 20px !important;
-    z-index: 10 !important;
-    pointer-events: none;
-    /* 클릭 이벤트가 <a> 태그에 곧장 도달하도록 설정 */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    transition: opacity 0.35s ease, transform 0.35s ease, visibility 0.35s ease !important;
-}
+    /* ⭐ [핵심 수정 3] 모바일 컨트롤 배치 절대 위치 수평 정렬 */
+    .video-swiper-controls {
+        position: absolute !important;
+        bottom: 10px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        margin-top: 0 !important;
+        justify-content: center !important;
+        z-index: 20 !important;
+    }
 
-.mobile-play-btn i {
-    margin-left: 4px;
-}
+    /* ⭐ [핵심 수정 4] 모바일 기기별 강제 폰트 지정(* {font-family:...})으로 인한 아이콘 깨짐 원천 방어 */
+    .fa, [class^="fa-"], [class*=" fa-"] {
+        font-family: FontAwesome !important;
+    }
 
-/* 비디오 구동 시(.is-playing) 재생 원형 버튼 페이드아웃 및 축소 모션 연동 */
-.portfolio.is-playing .mobile-play-btn,
-.post-thumbnail.is-playing .mobile-play-btn {
-    opacity: 0 !important;
-    visibility: hidden !important;
-    transform: translate(-50%, -50%) scale(0.8) !important;
+    /* ⭐ [핵심 수정 5] 모바일 전용 재생 버튼 스타일 및 페이드 트랜지션 연동 */
+    .mobile-play-btn {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) scale(1) !important;
+        width: 60px !important;
+        height: 60px !important;
+        background: rgba(0, 129, 54, 0.9) !important; /* 브랜드 딥그린 */
+        color: #ffffff !important;
+        border-radius: 50% !important;
+        font-size: 20px !important;
+        z-index: 10 !important;
+        pointer-events: none; /* 클릭 이벤트 통과 처리 */
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        transition: opacity 0.35s ease, transform 0.35s ease, visibility 0.35s ease !important;
+    }
+
+    .mobile-play-btn i {
+        margin-left: 4px;
+    }
+
+    /* 재생 활성화(.is-playing) 시 자연스러운 소멸 모션 적용 */
+    .portfolio.is-playing .mobile-play-btn,
+    .post-thumbnail.is-playing .mobile-play-btn {
+        opacity: 0 !important;
+        visibility: hidden !important;
+        transform: translate(-50%, -50%) scale(0.8) !important;
+    }
 }
 
 
 /* ==========================================================================
-8. Resume Section (#resume)
-========================================================================== /
-/ STREAMING_CHUNK:Styling resume section timeline... */
+   8. Resume Section (#resume)
+   ========================================================================== */
 .resume-title {
     position: relative;
 }
@@ -1638,14 +1655,12 @@ video {
     .timeline>li .posted-date .month {
         float: none;
     }
-
-
 }
 
+
 /* ==========================================================================
-9. Skills Section (#skills)
-========================================================================== /
-/ STREAMING_CHUNK:Styling skill progress bars and charts... */
+   9. Skills Section (#skills)
+   ========================================================================== */
 .skills-section {
     color: #333;
 }
@@ -1776,10 +1791,10 @@ video {
     font-size: 22px;
 }
 
+
 /* ==========================================================================
-10. Interview Section (#interview)
-========================================================================== /
-/ STREAMING_CHUNK:Styling interview cards... */
+   10. Interview Section (#interview)
+   ========================================================================== */
 .interview-section {
     background-color: #eae2d8;
 }
@@ -1807,10 +1822,10 @@ video {
     font-weight: 600;
 }
 
+
 /* ==========================================================================
-11. Contact Section (#contact)
-========================================================================== /
-/ STREAMING_CHUNK:Styling contact area and icons... */
+   11. Contact Section (#contact)
+   ========================================================================== */
 .contact_in {
     text-align: left;
 }
@@ -1874,10 +1889,10 @@ video {
     opacity: 0;
 }
 
+
 /* ==========================================================================
-12. Scroll-Up & Extra Utilities (.scroll-up) & Footer & Preloader
-========================================================================== /
-/ STREAMING_CHUNK:Styling scroll up float character and preloader... */
+   12. Scroll-Up & Extra Utilities (.scroll-up) & Footer & Preloader
+   ========================================================================== */
 .footer-wrapper {
     background: #eae2d8;
     padding: 20px 0;
@@ -1924,17 +1939,26 @@ video {
 }
 
 @keyframes floatingChar {
-    0% {
-        transform: translateY(0);
-    }
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+    100% { transform: translateY(0); }
+}
 
-    50% {
-        transform: translateY(-8px);
-    }
+/* Portfolio 섹션 내 모든 Magnific Popup 관련 재생 버튼 및 오버레이 차단 */
+#portfolio .magnific-popup-icon,
+#portfolio .mfp-play,
+#portfolio .mfp-arrow,
+#portfolio .video-play-icon, 
+.mfp-with-zoom .mfp-container {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
 
-    100% {
-        transform: translateY(0);
-    }
+/* 추가: 포트폴리오 아이템 위를 덮고 있는 모든 가상 요소 삭제 */
+#portfolio .post-thumbnail::before,
+#portfolio .post-thumbnail::after {
+    display: none !important;
 }
 
 .mouse-icon {
@@ -1966,20 +1990,9 @@ video {
 }
 
 @keyframes drop {
-    0% {
-        top: 5px;
-        opacity: 0;
-    }
-
-    30% {
-        top: 10px;
-        opacity: 1;
-    }
-
-    100% {
-        top: 25px;
-        opacity: 0;
-    }
+    0% { top: 5px; opacity: 0; }
+    30% { top: 10px; opacity: 1; }
+    100% { top: 25px; opacity: 0; }
 }
 
 #tt-preloader {
@@ -2126,43 +2139,23 @@ video {
 }
 
 @keyframes ani1 {
-    0% {
-        opacity: 0;
-    }
-
-    100% {
-        opacity: 100;
-    }
+    0% { opacity: 0; }
+    100% { opacity: 100; }
 }
 
 @keyframes ani2 {
-    0% {
-        opacity: 100;
-    }
-
-    100% {
-        opacity: 0;
-    }
+    0% { opacity: 100; }
+    100% { opacity: 0; }
 }
 
 @keyframes ani3 {
-    0% {
-        transform: rotate(0);
-    }
-
-    100% {
-        transform: rotate(90deg);
-    }
+    0% { transform: rotate(0); }
+    100% { transform: rotate(90deg); }
 }
 
 @keyframes ani4 {
-    0% {
-        transform: rotate(0);
-    }
-
-    100% {
-        transform: rotate(-90deg);
-    }
+    0% { transform: rotate(0); }
+    100% { transform: rotate(-90deg); }
 }
 
 .add_effect {
