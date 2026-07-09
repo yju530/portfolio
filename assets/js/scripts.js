@@ -377,185 +377,62 @@ jQuery(function ($) {
 
 
     /* ==========================================================================
-       7. Video Section (#video-section) - Swiper & PC Hover & Mobile Toggle Controls
-       ========================================================================== */
+   7. Video Section (#video-section) - 클릭 재생 전용 로직
+   ========================================================================== */
     $(document).ready(function () {
-        // A. Video Swiper 인스턴스 기동 (페이드 연동)
+        // A. Swiper 초기화
         if ($('.videoSwiper').length > 0) {
-            const videoSwiper = new Swiper('.videoSwiper', {
+            new Swiper('.videoSwiper', {
                 slidesPerView: 1,
                 spaceBetween: 30,
                 loop: true,
-                autoplay: {
-                    delay: 6000,
-                    disableOnInteraction: false,
-                    pauseOnMouseEnter: true
-                },
-                navigation: {
-                    nextEl: '.video-swiper-next',
-                    prevEl: '.video-swiper-prev',
-                },
+                autoplay: { delay: 6000, disableOnInteraction: false, pauseOnMouseEnter: true },
+                navigation: { nextEl: '.video-swiper-next', prevEl: '.video-swiper-prev' },
                 effect: 'fade',
-                fadeEffect: {
-                    crossFade: true
-                }
+                fadeEffect: { crossFade: true }
             });
         }
 
-        $(document).ready(function () {
-            /* 1. 비디오 섹션 재생 제어 */
-            const $videos = $('#video-section video'); // Video 섹션 내 비디오만 타겟팅
+        // B. Video 섹션 전용 클릭 재생 로직
+        $('#video-section .portfolio').on('click', function () {
+            const $video = $(this).find('.hover-video');
+            const videoEl = $video[0];
 
-            $videos.each(function () {
-                const video = this;
-                video.setAttribute('playsinline', '');
+            if (!videoEl) return;
 
-                // 영상이 끝까지 재생되면 처음부터 반복
-                video.addEventListener('ended', function () {
-                    video.currentTime = 0;
-                    video.play();
+            if (videoEl.paused) {
+                // 다른 영상 모두 정지 및 초기화
+                $('video.hover-video').each(function () {
+                    this.pause();
+                    this.currentTime = 0;
+                    $(this).hide().css('opacity', '0');
                 });
-            });
 
-            /* 2. Top 버튼 동작 보완 */
-            const $scrollUp = $(".scroll-up");
-            $scrollUp.on("click", function (e) {
-                e.preventDefault();
-                $('html, body').animate({ scrollTop: 0 }, 600);
-            });
-        });
-
-        // B. [PC 호버 & 모바일 클릭 재생 + Swiper 자동재생 멈춤 통합 로직]
-        const isMobile = () => window.matchMedia("(max-width: 767px)").matches;
-
-        // Portfolio 섹션의 .post-thumbnail과 Video 섹션의 .portfolio를 정밀 스캔합니다.
-        $('.post-thumbnail, .portfolio').each(function () {
-            const $container = $(this);
-            const $video = $container.find('.hover-video');
-            const $link = $container.find('a.image-link');
-
-            if ($video.length === 0) return;
-
-            // 모바일 환경을 위한 미학적 재생 버튼 동적 확보
-            if ($container.find('.mobile-play-btn').length === 0) {
-                $container.append('<div class="mobile-play-btn"><i class="fa fa-play"></i></div>');
-            }
-
-            /* --- 데스크톱 호버 제어 --- */
-            $container.on('mouseenter', function () {
-                if (isMobile()) return;
-
+                // 선택한 영상 재생
                 $video.show().css('opacity', '1');
-                const videoEl = $video[0];
-                if (videoEl) {
-                    videoEl.muted = true;
-                    videoEl.play().catch(function (err) {
-                        console.log("Desktop video autoplay check:", err);
-                    });
-                }
-
-                // 우측 영상 가이드 슬라이딩 등장 연동
-                const $desc = $container.closest('.video-content-layout').find('.video-right-desc');
-                if ($desc.length > 0 && typeof gsap !== "undefined" && window.innerWidth >= 768) {
-                    gsap.fromTo($desc,
-                        { opacity: 0, x: -50 },
-                        { opacity: 1, x: 0, duration: 0.6, ease: "power2.out", overwrite: "auto" }
-                    );
-                }
-            }).on('mouseleave', function () {
-                if (isMobile()) return;
-
-                const videoEl = $video[0];
-                if (videoEl) {
-                    videoEl.pause();
-                    videoEl.currentTime = 0;
-                }
+                videoEl.play();
+            } else {
+                // 영상 정지
+                videoEl.pause();
                 $video.hide().css('opacity', '0');
-
-                // 우측 영상 가이드 퇴장
-                const $desc = $container.closest('.video-content-layout').find('.video-right-desc');
-                if ($desc.length > 0 && typeof gsap !== "undefined" && window.innerWidth >= 768) {
-                    gsap.to($desc, {
-                        opacity: 0,
-                        x: -50,
-                        duration: 0.4,
-                        ease: "power2.in",
-                        overwrite: "auto"
-                    });
-                }
-            });
-
-            /* --- 모바일 터치 기반 페이드 토글 제어 --- */
-            // 링크 태그가 존재하면 링크를 타겟팅하고, 없다면 컨테이너 요소를 직접 타겟팅해 오작동을 차단합니다.
-            const $clickTarget = $link.length ? $link : $container;
-
-            $clickTarget.on('click', function (e) {
-                if (!isMobile()) return;
-
-                // 모바일 MagnificPopup 링크 실행 및 강제 페이지 점프 방어
-                e.preventDefault();
-                e.stopPropagation();
-
-                const videoEl = $video[0];
-                if (!videoEl) return;
-
-                const $swiperContainer = $container.closest('.swiper');
-                const swiperInstance = $swiperContainer.length ? $swiperContainer[0].swiper : null;
-
-                if (videoEl.paused) {
-                    // 1. 싱글 플레이어: 다른 모든 영상 강제 중지 및 리셋
-                    $('.hover-video').each(function () {
-                        if (this !== videoEl) {
-                            this.pause();
-                            this.currentTime = 0;
-                            $(this).hide().css('opacity', '0');
-                            $(this).closest('.post-thumbnail, .portfolio').removeClass('is-playing');
-                        }
-                    });
-
-                    // 2. 비디오 활성화 및 구동
-                    $video.show().css('opacity', '1');
-                    videoEl.play().then(function () {
-                        // 성공적으로 재생이 완료되면 클래스를 부여하여 재생 기호를 부드럽게 숨깁니다 (CSS 연동)
-                        $container.addClass('is-playing');
-
-                        // 재생되는 도중 Swiper가 넘어가버리지 않도록 Autoplay를 임시 고정합니다.
-                        if (swiperInstance && swiperInstance.autoplay) {
-                            swiperInstance.autoplay.stop();
-                        }
-                    }).catch(function (err) {
-                        console.warn("Autoplay block active on mobile:", err);
-                    });
-
-                } else {
-                    // 3. 재클릭 시 정지 및 버튼 복구
-                    videoEl.pause();
-                    $video.hide().css('opacity', '0');
-                    $container.removeClass('is-playing'); // 클래스 해제로 버튼 재생 기호 부드럽게 복구
-
-                    // Autoplay를 원위치하여 슬라이드가 순차 흐름을 갖게 합니다.
-                    if (swiperInstance && swiperInstance.autoplay) {
-                        swiperInstance.autoplay.start();
-                    }
-                }
-            });
+            }
         });
 
-        // 4. 스와이프 제스처 드래그 조작으로 슬라이드가 변조되었을 때 재생 상태 정리
-        $('.swiper').each(function () {
-            if (this.swiper) {
-                this.swiper.on('slideChange', function () {
-                    $('.hover-video').each(function () {
-                        this.pause();
-                        this.currentTime = 0;
-                        $(this).hide().css('opacity', '0');
-                        $(this).closest('.post-thumbnail, .portfolio').removeClass('is-playing');
-                    });
-                });
-            }
+        // C. 영상 끝까지 재생 시 반복 (중간 멈춤 방지)
+        $('video.hover-video').on('ended', function () {
+            this.currentTime = 0;
+            this.play();
+        });
+
+        // D. 슬라이드 변경 시 재생 중인 영상 모두 정지
+        $('.swiper').on('slideChange', function () {
+            $('video.hover-video').each(function () {
+                this.pause();
+                this.currentTime = 0;
+                $(this).hide().css('opacity', '0');
+            });
         });
     });
-
 
     /* ==========================================================================
        8. Resume Section (#resume)
