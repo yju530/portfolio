@@ -256,26 +256,28 @@ jQuery(function ($) {
         });
     }());
 
+    $(document).ready(function () {
+    // 호버 시 영상 재생 (Video 섹션과 완벽 분리)
+        $('#portfolio .blog-post-wrapper').on('mouseenter', function() {
+            const $video = $(this).find('.hover-video');
+            if ($video.length > 0) {
+                $video.show().css('opacity', '1');
+                $video[0].play();
+            }
+        }).on('mouseleave', function() {
+            const $video = $(this).find('.hover-video');
+            if ($video.length > 0) {
+                $video[0].pause();
+                $video[0].currentTime = 0;
+                $video.hide().css('opacity', '0');
+            }
+        });
+    });
+
 
     /* ==========================================================================
        5. SNS-design Section (#sns-design)
        ========================================================================== */
-    $(document).ready(function () {
-        if ($('.snsSwiper').length > 0) {
-            const snsSwiper = new Swiper('.snsSwiper', {
-                slidesPerView: 'auto',
-                spaceBetween: 30,
-                loop: false,
-                grabCursor: true,
-                freeMode: true,
-                autoplay: {
-                    delay: 4000,
-                    disableOnInteraction: true,
-                }
-            });
-        }
-    });
-
     $(document).ready(function () {
         if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
             gsap.to(".camera-char", {
@@ -288,6 +290,30 @@ jQuery(function ($) {
                 y: 0,
                 duration: 0.7,
                 ease: "back.out(2)"
+            });
+        }
+    });
+    $(document).ready(function () {
+        if ($('.snsSwiper').length > 0) {
+            const snsSwiper = new Swiper('.snsSwiper', {
+            // 변경된 부분: 슬라이드 개수 명시
+                slidesPerView: 2.2, // 2개는 완전히, 3번째 슬라이드는 0.2만큼 보이게 설정
+                spaceBetween: 30,
+                loop: false,
+                grabCursor: true,
+                autoplay: {
+                    delay: 4000,
+                    disableOnInteraction: true,
+                },
+            // 브레이크포인트 추가 (모바일 대응)
+                breakpoints: {
+                    768: {
+                        slidesPerView: 2.2
+                    },
+                    320: {
+                        slidesPerView: 1.2
+                    }
+                }
             });
         }
     });
@@ -379,8 +405,9 @@ jQuery(function ($) {
     /* ==========================================================================
    7. Video Section (#video-section) - 클릭 재생 전용 로직
    ========================================================================== */
+  /* 7. Video Section (#video-section) - 클릭 재생 & 호버 설명 표시 로직 */
     $(document).ready(function () {
-        // A. Swiper 초기화
+    // A. Swiper 초기화
         if ($('.videoSwiper').length > 0) {
             new Swiper('.videoSwiper', {
                 slidesPerView: 1,
@@ -392,47 +419,45 @@ jQuery(function ($) {
             });
         }
 
-        // B. Video 섹션 전용 클릭 재생 로직
+    // B. Video 섹션 호버 및 클릭 로직
+        $('#video-section .portfolio').on('mouseenter', function() {
+        // 호버 시 설명 영역 애니메이션
+            const $desc = $(this).closest('.video-content-layout').find('.video-right-desc');
+            if ($desc.length > 0 && typeof gsap !== "undefined" && window.innerWidth >= 768) {
+                gsap.to($desc, { opacity: 1, x: 0, duration: 0.6, ease: "power2.out", overwrite: "auto" });
+            }
+        }).on('mouseleave', function() {
+        // 호버 해제 시 설명 영역 애니메이션
+            const $desc = $(this).closest('.video-content-layout').find('.video-right-desc');
+            if ($desc.length > 0 && typeof gsap !== "undefined" && window.innerWidth >= 768) {
+                gsap.to($desc, { opacity: 0, x: -50, duration: 0.4, ease: "power2.in", overwrite: "auto" });
+            }
+        });
+
+    // 클릭 시 재생/정지
         $('#video-section .portfolio').on('click', function () {
             const $video = $(this).find('.hover-video');
             const videoEl = $video[0];
-
             if (!videoEl) return;
 
             if (videoEl.paused) {
-                // 다른 영상 모두 정지 및 초기화
                 $('video.hover-video').each(function () {
-                    this.pause();
-                    this.currentTime = 0;
-                    $(this).hide().css('opacity', '0');
+                    this.pause(); this.currentTime = 0; $(this).hide().css('opacity', '0');
                 });
-
-                // 선택한 영상 재생
                 $video.show().css('opacity', '1');
                 videoEl.play();
             } else {
-                // 영상 정지
                 videoEl.pause();
                 $video.hide().css('opacity', '0');
             }
         });
-
-        // C. 영상 끝까지 재생 시 반복 (중간 멈춤 방지)
-        $('video.hover-video').on('ended', function () {
-            this.currentTime = 0;
-            this.play();
-        });
-
-        // D. 슬라이드 변경 시 재생 중인 영상 모두 정지
+    
+    // C. 영상 끝 반복 및 슬라이드 변경 시 정리
+        $('video.hover-video').on('ended', function () { this.currentTime = 0; this.play(); });
         $('.swiper').on('slideChange', function () {
-            $('video.hover-video').each(function () {
-                this.pause();
-                this.currentTime = 0;
-                $(this).hide().css('opacity', '0');
-            });
+            $('video.hover-video').each(function () { this.pause(); this.currentTime = 0; $(this).hide().css('opacity', '0'); });
         });
     });
-
     /* ==========================================================================
        8. Resume Section (#resume)
        ========================================================================== */
@@ -452,7 +477,22 @@ jQuery(function ($) {
             });
         }
     });
-
+    /* Video 섹션 말풍선 등장 애니메이션 */
+    $(document).ready(function () {
+        if (typeof gsap !== "undefined") {
+            gsap.from(".video-bubble", {
+                scrollTrigger: {
+                    trigger: "#video-section",
+                    start: "top 70%"
+                },
+                scale: 0,
+                opacity: 0,
+                duration: 0.8,
+                delay: 0.5,
+                ease: "back.out(2)"
+            });
+        }
+    });
 
     /* ==========================================================================
        9. Skills Section (#skills) & Inview Triggers
