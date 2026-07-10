@@ -1160,7 +1160,7 @@ video {
     position: absolute;
     top: -40px; /* 캐릭터 위쪽으로 배치 */
     left: 20px;
-    width: 100px; /* 말풍선 크기 조절 */
+    width: 200px; /* 말풍선 크기 조절 */
     z-index: 5;
 }
 
