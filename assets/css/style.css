@@ -1146,6 +1146,36 @@ video {
     justify-content: center;
     align-items: flex-end;
     align-self: flex-end;
+    position: relative;
+}
+
+/* 캐릭터 영역 컨테이너 애니메이션 */
+.video-left-char {
+    position: relative;
+    animation: floatingChar 3s infinite ease-in-out;
+}
+
+/* 말풍선 스타일 */
+.video-bubble {
+    position: absolute;
+    top: -40px; /* 캐릭터 위쪽으로 배치 */
+    left: 20px;
+    width: 100px; /* 말풍선 크기 조절 */
+    z-index: 5;
+}
+
+/* 기존 캐릭터 이미지 스타일 */
+.video-char-img {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+/* 둥둥 떠다니는 효과 (이미 정의된 floatingChar 키프레임 활용) */
+@keyframes floatingChar {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0); }
 }
 
 .video-left-char img {
@@ -1353,6 +1383,8 @@ video {
 .video-center-player .portfolio {
     cursor: pointer !important;
 }
+
+
 
 /* ==========================================================================
    8. Resume Section (#resume)
@@ -1913,21 +1945,19 @@ video {
     100% { transform: translateY(0); }
 }
 
-/* Portfolio 섹션 내 모든 Magnific Popup 관련 재생 버튼 및 오버레이 차단 */
+/* 팝업은 허용하되 재생 버튼 아이콘만 깔끔하게 제거 */
 #portfolio .magnific-popup-icon,
 #portfolio .mfp-play,
-#portfolio .mfp-arrow,
-#portfolio .video-play-icon, 
-.mfp-with-zoom .mfp-container {
+#portfolio .video-play-icon {
     display: none !important;
-    visibility: hidden !important;
-    pointer-events: none !important;
 }
 
-/* 추가: 포트폴리오 아이템 위를 덮고 있는 모든 가상 요소 삭제 */
-#portfolio .post-thumbnail::before,
-#portfolio .post-thumbnail::after {
-    display: none !important;
+/* 포트폴리오 썸네일 클릭을 위한 설정 */
+#portfolio .post-thumbnail a.image-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
 }
 
 .mouse-icon {
